@@ -1,2 +1,2 @@
 # HomER_flutter
-Mobile Application for Rental Aid using flutter
+Mobile Application for Resiential Rental Aid using flutter
