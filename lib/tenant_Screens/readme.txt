@@ -1,0 +1,1 @@
+This ia the tenant_screens dir where all the tenant side screens are present
