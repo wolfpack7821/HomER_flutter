@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../models/building.dart';
 
-
 class BuildingsProvider with ChangeNotifier {
   List<Building> _items = [
     Building(
@@ -78,20 +77,62 @@ class BuildingsProvider with ChangeNotifier {
       ],
     ),
     Building(
-      buildId: "02",
-      buildName: "Building-2",
-      buildAddress: "Address of Building-2",
-    ),
+        buildId: "02",
+        buildName: "Building-2",
+        buildAddress: "Address of Building-2",
+        houses: [
+          {
+            "buildId": "01",
+            "houseId": "301",
+            "houseNumber": "G01",
+            "tenantName": "Goutham K",
+            "tenantUname": "k_gout",
+            "tenantIdProof": "kgoutIdProof",
+            "houseAgreement": "G01Agree",
+            "houseAdv": 50000.00,
+            "houseRent": 10000.00,
+            "houseMaintenance": 500.00,
+            "isHouseWaterFixed": false,
+          },
+        ]),
     Building(
-      buildId: "03",
-      buildName: "Building-3",
-      buildAddress: "Address of Building-3",
-    ),
+        buildId: "03",
+        buildName: "Building-3",
+        buildAddress: "Address of Building-3",
+        houses: [
+          {
+            "buildId": "01",
+            "houseId": "301",
+            "houseNumber": "G01",
+            "tenantName": "Goutham K",
+            "tenantUname": "k_gout",
+            "tenantIdProof": "kgoutIdProof",
+            "houseAgreement": "G01Agree",
+            "houseAdv": 50000.00,
+            "houseRent": 10000.00,
+            "houseMaintenance": 500.00,
+            "isHouseWaterFixed": false,
+          },
+        ]),
     Building(
-      buildId: "04",
-      buildName: "Building-4",
-      buildAddress: "Address of Building-4",
-    ),
+        buildId: "04",
+        buildName: "Building-4",
+        buildAddress: "Address of Building-4",
+        houses: [
+          {
+            "buildId": "01",
+            "houseId": "301",
+            "houseNumber": "G01",
+            "tenantName": "Goutham K",
+            "tenantUname": "k_gout",
+            "tenantIdProof": "kgoutIdProof",
+            "houseAgreement": "G01Agree",
+            "houseAdv": 50000.00,
+            "houseRent": 10000.00,
+            "houseMaintenance": 500.00,
+            "isHouseWaterFixed": false,
+          },
+        ]),
   ];
 
   List<Building> get items {
