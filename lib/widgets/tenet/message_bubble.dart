@@ -29,18 +29,6 @@ class MessageBubble extends StatelessWidget {
                         textAlign: isMe ? TextAlign.right : TextAlign.left,
                       ),
                     ),
-                    // InkWell(
-                    //   onTap: () {
-                    //     // Navigator.of(context).pushNamed(Media.id,
-                    //     //     arguments: [userImageurl, false]);
-                    //   },
-                    //   child: Padding(
-                    //     padding: const EdgeInsets.symmetric(horizontal: 5),
-                    //     child: CircleAvatar(
-                    //       backgroundImage: NetworkImage(userImageurl),
-                    //     ),
-                    //   ),
-                    // ),
                   ],
                 ),
                 Stack(

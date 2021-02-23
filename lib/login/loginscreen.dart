@@ -1,3 +1,4 @@
+// import 'package:HomER_flutter/owner_Screens/houses_overview_screen.dart';
 import 'package:HomER_flutter/tenant_Screens/home.dart';
 import 'package:flutter/material.dart';
 
@@ -30,7 +31,9 @@ class _LoginPageState extends State<LoginPage> {
         });
         if (type == 'tenet') {
           Navigator.of(context).pushNamed(TenetHome.id);
-        } else {}
+        } else {
+          // Navigator.of(context).pushNamed(HousesOverviewScreen.id);
+        }
       },
       child: _isLoading
           ? CircularProgressIndicator()
@@ -163,15 +166,6 @@ class _LoginPageState extends State<LoginPage> {
                       decoration:
                           InputDecoration(labelText: 'Full Name'),
                       obscureText: true,
-                      // validator: _authMode == AuthMode.Signup
-                      //     ? (value) {
-                      //         if (value != _passwordController.text) {
-                      //           return 'Passwords do not match!';
-                      //         } else {
-                      //           return null;
-                      //         }
-                      //       }
-                      //     : null,
                     ):Container(),
                   ),
                   _authMode == AuthMode.Signup? TextFormField(

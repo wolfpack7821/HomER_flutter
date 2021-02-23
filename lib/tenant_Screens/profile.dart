@@ -33,7 +33,7 @@ class _TenetProfileState extends State<TenetProfile> {
         elevation: 0,
         // centerTitle: true,
         title: Text(
-          'OWNER X',
+          'PROFILE',
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
         ),
         actions: [
@@ -73,14 +73,10 @@ class _TenetProfileState extends State<TenetProfile> {
   }
 
   Widget displayUserInformation(context) {
-    // final authData = snapshot.data;
+
     _userCountryController.text = user['address'];
     return Column(
       children: <Widget>[
-        // Padding(
-        //   padding: const EdgeInsets.only(top: 10.0),
-        //   child: Provider.of<Auth>(context).getProfileImage(),
-        // ),
         Padding(
           padding: const EdgeInsets.all(8.0),
           child: tiles(Icon(Icons.people), 'Name',

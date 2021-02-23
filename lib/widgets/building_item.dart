@@ -15,7 +15,7 @@ class BuildingItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).pushNamed(HousesOverviewScreen.routeName, arguments: buildId);
+        Navigator.of(context).pushNamed(HousesOverviewScreen.id, arguments: buildId);
       },
       child: Container(
         padding: const EdgeInsets.all(15),
