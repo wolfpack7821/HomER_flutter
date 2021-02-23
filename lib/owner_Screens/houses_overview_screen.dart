@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import '../providers/buildings_provider.dart';
 
 class HousesOverviewScreen extends StatelessWidget {
-  static const routeName = '/houses-overview-screen';
+  static const id = '/houses-overview-screen';
 
   @override
   Widget build(BuildContext context) {
@@ -15,6 +15,8 @@ class HousesOverviewScreen extends StatelessWidget {
             .findById(buildId);
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 0,
         title: Text(loadedBuilding.buildName),
       ),
       body: ListView.builder(
