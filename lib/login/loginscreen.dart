@@ -1,6 +1,7 @@
 // import 'package:HomER_flutter/owner_Screens/houses_overview_screen.dart';
 import 'package:HomER_flutter/tenant_Screens/home.dart';
 import 'package:flutter/material.dart';
+import '../owner_Screens/buildings_overview_screen.dart';
 
 enum AuthMode { Signup, Login }
 
@@ -32,7 +33,7 @@ class _LoginPageState extends State<LoginPage> {
         if (type == 'tenet') {
           Navigator.of(context).pushNamed(TenetHome.id);
         } else {
-          // Navigator.of(context).pushNamed(HousesOverviewScreen.id);
+          Navigator.of(context).pushNamed(BuildingsOverviewScreen.id);
         }
       },
       child: _isLoading
