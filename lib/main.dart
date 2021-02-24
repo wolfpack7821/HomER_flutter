@@ -1,15 +1,17 @@
-import 'package:HomER_flutter/login/loginscreen.dart';
-import 'package:HomER_flutter/login/welcome.dart';
-import 'package:HomER_flutter/owner_Screens/buildings_overview_screen.dart';
-import 'package:HomER_flutter/tenant_Screens/home.dart';
-import 'package:HomER_flutter/tenant_Screens/payment_details.dart';
-import 'package:HomER_flutter/tenant_Screens/payment_history.dart';
-import 'package:HomER_flutter/tenant_Screens/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import './owner_Screens/houses_overview_screen.dart';
 import './providers/buildings_provider.dart';
+import './login/loginscreen.dart';
+import './login/welcome.dart';
+import './owner_Screens/buildings_overview_screen.dart';
+import './tenant_Screens/home.dart';
+import './tenant_Screens/payment_details.dart';
+import './tenant_Screens/payment_history.dart';
+import './tenant_Screens/profile.dart';
+import './owner_Screens/edit_building_screen.dart';
+import './owner_Screens/edit_house_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -36,7 +38,9 @@ class MyApp extends StatelessWidget {
           HousesOverviewScreen.id: (_) => HousesOverviewScreen(),
           BuildingsOverviewScreen.id:(context) => BuildingsOverviewScreen(),
           PaymentHistory.id: (context) => PaymentHistory(),
-          PaymentDetails.id:(context) =>PaymentDetails()
+          PaymentDetails.id:(context) =>PaymentDetails(),
+          EditBuildingScreen.id:(_) => EditBuildingScreen(),
+          EditHouseScreen.id:(_) => EditHouseScreen(),
         },
       ),
     );

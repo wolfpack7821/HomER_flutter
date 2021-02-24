@@ -1,25 +1,27 @@
 import 'package:flutter/material.dart';
 
 import '../widgets/buildings_grid.dart';
+import './edit_building_screen.dart';
+
 
 class BuildingsOverviewScreen extends StatefulWidget {
-  static const id ='buildingoverviewScreen';
+  static const id = 'buildingoverviewScreen';
 
   @override
-  _BuildingsOverviewScreenState createState() => _BuildingsOverviewScreenState();
+  _BuildingsOverviewScreenState createState() =>
+      _BuildingsOverviewScreenState();
 }
 
 class _BuildingsOverviewScreenState extends State<BuildingsOverviewScreen> {
   @override
   void initState() {
-    setState(() {
-      
-    });
+    setState(() {});
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
-final _scaffoldKey = GlobalKey<ScaffoldState>();
+    final _scaffoldKey = GlobalKey<ScaffoldState>();
     return Scaffold(
       key: _scaffoldKey,
       appBar: AppBar(
@@ -41,8 +43,9 @@ final _scaffoldKey = GlobalKey<ScaffoldState>();
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
         ),
         actions: [
-          IconButton(
-              icon: Icon(Icons.question_answer_rounded), onPressed: (){}),
+          IconButton(icon: Icon(Icons.add), onPressed: () {
+            Navigator.of(context).pushNamed(EditBuildingScreen.id);
+          }),
         ],
       ),
       drawer: Drawer(),

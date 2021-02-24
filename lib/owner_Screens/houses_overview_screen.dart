@@ -1,3 +1,4 @@
+import 'package:HomER_flutter/owner_Screens/edit_house_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -18,6 +19,11 @@ class HousesOverviewScreen extends StatelessWidget {
         backgroundColor: Colors.white,
         elevation: 0,
         title: Text(loadedBuilding.buildName),
+        actions: [
+          IconButton(icon: Icon(Icons.add), onPressed: () {
+            Navigator.of(context).pushNamed(EditHouseScreen.id);
+          }),
+        ],
       ),
       body: ListView.builder(
         itemCount: loadedBuilding.houses.length,
