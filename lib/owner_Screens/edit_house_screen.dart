@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class EditHouseScreen extends StatefulWidget {
-  static const id = '/edit-building';
+  static const id = '/edit-house';
   @override
   _EditHouseScreenState createState() => _EditHouseScreenState();
 }

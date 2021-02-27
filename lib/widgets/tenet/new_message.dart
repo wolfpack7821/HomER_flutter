@@ -54,7 +54,11 @@ class _NewMessageState extends State<NewMessage> {
               ),
               Row(
                 children: [
-                  IconButton(icon: Icon(Icons.attach_file), onPressed: () {}),
+                  IconButton(
+                      icon: Icon(Icons.attach_file),
+                      onPressed: () {
+                        _billDialog(context);
+                      }),
                   FlatButton(
                       child: _message.isEmpty ? Text('Pay') : Text('Send'),
                       onPressed:
@@ -66,5 +70,51 @@ class _NewMessageState extends State<NewMessage> {
         ],
       ),
     );
+  }
+
+  _billDialog(BuildContext context) async {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            content: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                FlatButton(
+                  onPressed: () {
+                    setState(() {
+                    });
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('Electicity bill'),
+                ),
+                FlatButton(
+                  onPressed: () {
+                    setState(() {
+                    });
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('Maintenece costs'),
+                ),
+                FlatButton(
+                  onPressed: () {
+                    setState(() {
+                    });
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('Misc costs'),
+                ),
+              ],
+            ),
+            actions: <Widget>[
+              FlatButton(
+                child: const Text('CANCEL'),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        });
   }
 }

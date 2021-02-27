@@ -1,3 +1,4 @@
+import 'package:HomER_flutter/tenant_Screens/complaintPage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -40,6 +41,7 @@ class MyApp extends StatelessWidget {
           PaymentHistory.id: (context) => PaymentHistory(),
           PaymentDetails.id:(context) =>PaymentDetails(),
           EditBuildingScreen.id:(_) => EditBuildingScreen(),
+          ComplaintPage.id: (context) => ComplaintPage(),
           EditHouseScreen.id:(_) => EditHouseScreen(),
         },
       ),

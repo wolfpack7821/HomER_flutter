@@ -1,3 +1,4 @@
+import 'package:HomER_flutter/tenant_Screens/complaintPage.dart';
 import 'package:HomER_flutter/widgets/tenet/messages.dart';
 import 'package:HomER_flutter/widgets/tenet/new_message.dart';
 import 'package:flutter/material.dart';
@@ -35,11 +36,14 @@ class _TenetHomeState extends State<TenetHome> {
         ),
         actions: [
           FlatButton(
-            onPressed: (){},
+            onPressed: (){
+            },
             child: Text('Vacat'),
           ),
           IconButton(
-              icon: Icon(Icons.question_answer_rounded), onPressed: (){}),
+              icon: Icon(Icons.question_answer_rounded), onPressed: (){
+                Navigator.of(context).pushNamed(ComplaintPage.id);
+              }),
         ],
       ),
       drawer: MainDrawer(),
