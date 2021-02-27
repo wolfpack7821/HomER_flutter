@@ -39,7 +39,7 @@ class PaymentHistory extends StatelessWidget {
           paidTo: 'Bala',
           payId: '01',
           date: 'Feburary 1',
-          paymentResult: false,
+          paymentResult: true,
         ),
         itemCount: 4,
       ),
