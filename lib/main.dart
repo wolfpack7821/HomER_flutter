@@ -11,7 +11,6 @@ import './tenant_Screens/home.dart';
 import './tenant_Screens/payment_details.dart';
 import './tenant_Screens/payment_history.dart';
 import './tenant_Screens/profile.dart';
-import './owner_Screens/edit_building_screen.dart';
 import './owner_Screens/edit_house_screen.dart';
 
 void main() => runApp(MyApp());
@@ -40,7 +39,6 @@ class MyApp extends StatelessWidget {
           BuildingsOverviewScreen.id:(context) => BuildingsOverviewScreen(),
           PaymentHistory.id: (context) => PaymentHistory(),
           PaymentDetails.id:(context) =>PaymentDetails(),
-          EditBuildingScreen.id:(_) => EditBuildingScreen(),
           ComplaintPage.id: (context) => ComplaintPage(),
           EditHouseScreen.id:(_) => EditHouseScreen(),
         },
