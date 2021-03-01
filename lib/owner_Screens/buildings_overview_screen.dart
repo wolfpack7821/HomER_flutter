@@ -61,18 +61,19 @@ class _BuildingsOverviewScreenState extends State<BuildingsOverviewScreen> {
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                TextField(decoration: InputDecoration(labelText: 'Building Name'),
+                TextField(decoration: InputDecoration(),
                   textInputAction: TextInputAction.next,),
                 TextField(decoration: InputDecoration(labelText: 'Address'),
                   textInputAction: TextInputAction.next,),
                 TextField(
                   maxLines: 3,
                   decoration: InputDecoration(
+                      labelText: 'Maintanence details',
                       border: const OutlineInputBorder(
                         borderSide:
                         const BorderSide(color: Colors.grey, width: 0.0),
                       ),
-                      hintText: 'Type Message Here...',
+                      hintText: 'Example - +91 00000 00000',
                       focusColor: Colors.purple[900]),
                 ),
               ],
