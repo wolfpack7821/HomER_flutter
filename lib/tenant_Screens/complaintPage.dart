@@ -18,7 +18,7 @@ class _ComplaintPageState extends State<ComplaintPage> {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
+      child: Scaffold(  
         appBar: AppBar(
           // automaticallyImplyLeading: false,
           backgroundColor: Colors.transparent,

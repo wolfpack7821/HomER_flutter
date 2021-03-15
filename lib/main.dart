@@ -1,3 +1,4 @@
+import 'package:HomER_flutter/owner_Screens/owner_chat.dart';
 import 'package:HomER_flutter/tenant_Screens/complaintPage.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -41,6 +42,7 @@ class MyApp extends StatelessWidget {
           PaymentDetails.id:(context) =>PaymentDetails(),
           ComplaintPage.id: (context) => ComplaintPage(),
           EditHouseScreen.id:(_) => EditHouseScreen(),
+          OwnerChat.id:(_) =>OwnerChat(),
         },
       ),
     );

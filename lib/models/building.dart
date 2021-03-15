@@ -1,6 +1,5 @@
 import 'package:flutter/foundation.dart';
 
-import './house.dart';
 
 class Building {
   final String buildId;

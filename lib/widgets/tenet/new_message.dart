@@ -11,19 +11,6 @@ class _NewMessageState extends State<NewMessage> {
 
   void _sendMessage() async {
     FocusScope.of(context).unfocus();
-    // final user = FirebaseAuth.instance.currentUser;
-    // final userData = await FirebaseFirestore.instance
-    //     .collection('users')
-    //     .doc(user.uid)
-    //     .get();
-    // FirebaseFirestore.instance.collection('chat').add({
-    //   'Text': _message,
-    //   'createdAt': Timestamp.now(),
-    //   'userId': user.uid,
-    //   'username': userData['username'],
-    //   'userImage': userData['image_url'],
-    //   'isImage': false,
-    // });
     _controller.clear();
     _message = '';
   }
@@ -54,11 +41,7 @@ class _NewMessageState extends State<NewMessage> {
               ),
               Row(
                 children: [
-                  IconButton(
-                      icon: Icon(Icons.attach_file),
-                      onPressed: () {
-                        _billDialog(context);
-                      }),
+                  IconButton(icon: Icon(Icons.attach_file), onPressed: () {}),
                   FlatButton(
                       child: _message.isEmpty ? Text('Pay') : Text('Send'),
                       onPressed:
@@ -70,51 +53,5 @@ class _NewMessageState extends State<NewMessage> {
         ],
       ),
     );
-  }
-
-  _billDialog(BuildContext context) async {
-    return showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                FlatButton(
-                  onPressed: () {
-                    setState(() {
-                    });
-                    Navigator.of(context).pop();
-                  },
-                  child: Text('Electicity bill'),
-                ),
-                FlatButton(
-                  onPressed: () {
-                    setState(() {
-                    });
-                    Navigator.of(context).pop();
-                  },
-                  child: Text('Maintenece costs'),
-                ),
-                FlatButton(
-                  onPressed: () {
-                    setState(() {
-                    });
-                    Navigator.of(context).pop();
-                  },
-                  child: Text('Misc costs'),
-                ),
-              ],
-            ),
-            actions: <Widget>[
-              FlatButton(
-                child: const Text('CANCEL'),
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-              ),
-            ],
-          );
-        });
   }
 }
