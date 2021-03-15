@@ -1,3 +1,4 @@
+import 'package:HomER_flutter/widgets/owner/owner_drawer.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/buildings_grid.dart';
@@ -48,7 +49,7 @@ class _BuildingsOverviewScreenState extends State<BuildingsOverviewScreen> {
               }),
         ],
       ),
-      drawer: Drawer(),
+      drawer: OwnerDrawer(),
       body: BuildingsGrid(),
     );
   }
