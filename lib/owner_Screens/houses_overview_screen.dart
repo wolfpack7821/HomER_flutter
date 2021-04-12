@@ -5,9 +5,14 @@ import 'package:provider/provider.dart';
 
 import '../providers/buildings_provider.dart';
 
-class HousesOverviewScreen extends StatelessWidget {
+class HousesOverviewScreen extends StatefulWidget {
   static const id = '/houses-overview-screen';
 
+  @override
+  _HousesOverviewScreenState createState() => _HousesOverviewScreenState();
+}
+
+class _HousesOverviewScreenState extends State<HousesOverviewScreen> {
   @override
   Widget build(BuildContext context) {
     final buildId = ModalRoute.of(context).settings.arguments
@@ -40,13 +45,13 @@ class HousesOverviewScreen extends StatelessWidget {
                 radius: 25,
                 child: FittedBox(
                   child: Text(
-                    loadedBuilding.houses[i]['houseId'].toString(),
+                    loadedBuilding.houses[i],
                     style: TextStyle(
                         fontWeight: FontWeight.bold, color: Colors.white),
                   ),
                 ),
               ),
-              title: Text(loadedBuilding.houses[i]['tenantName']),
+              title: Text('${loadedBuilding.houses[i]} tenent'),
               subtitle: Text(
                 'username',
                 style: TextStyle(color: Colors.grey),

@@ -17,7 +17,7 @@ class PaymentTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.only(left: 7,right: 7,top: 1,bottom: 1),
+      padding: EdgeInsets.only(left: 7, right: 7, top: 1, bottom: 1),
       width: MediaQuery.of(context).size.width * .5,
       height: MediaQuery.of(context).size.height * .1,
       child: Card(
@@ -27,7 +27,7 @@ class PaymentTile extends StatelessWidget {
             radius: 25,
           ),
           title: Row(
-            children: [Text(paidTo),SizedBox(width: 10,), Text(date)],
+            children: [Text(paidTo)],
           ),
           subtitle: Text('₹$amount'),
           onTap: () {
