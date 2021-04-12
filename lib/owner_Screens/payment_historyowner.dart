@@ -1,9 +1,9 @@
-import 'package:HomER_flutter/widgets/tenet/drawer.dart';
+import 'package:HomER_flutter/widgets/owner/owner_drawer.dart';
 import 'package:HomER_flutter/widgets/tenet/transaction.dart';
 import 'package:flutter/material.dart';
 // enum TransactionType { sent, received, pending }
-class PaymentHistory extends StatelessWidget {
-  static const id = 'paymentHistory';
+class PaymentHistoryOwner extends StatelessWidget {
+  static const id = 'paymentHistoryOwner';
   @override
   Widget build(BuildContext context) {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
@@ -22,7 +22,6 @@ class PaymentHistory extends StatelessWidget {
         ),
         backgroundColor: Colors.transparent,
         elevation: 0,
-        // centerTitle: true,
         title: Text(
           'Payment History',
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
@@ -32,7 +31,7 @@ class PaymentHistory extends StatelessWidget {
               icon: Icon(Icons.question_answer_rounded), onPressed: (){}),
         ],
       ),
-      drawer: MainDrawer(),
+      drawer: OwnerDrawer(),
       body: ListView.builder(
         itemBuilder: (ctx, i) => Transaction(
           receptient: 'OWNER X',

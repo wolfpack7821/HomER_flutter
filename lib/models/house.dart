@@ -13,6 +13,8 @@ class House {
   final double houseMaintenance;
   final bool isHouseWaterFixed;
   final double houseWater;
+  final double rating;
+  final String review;
   bool isVacant;
 
   House({
@@ -28,6 +30,8 @@ class House {
     @required this.houseMaintenance,
     @required this.isHouseWaterFixed,
     this.houseWater,
+    this.rating,
+    this.review,
     this.isVacant = true,
   });
 }

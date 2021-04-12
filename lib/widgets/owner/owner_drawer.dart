@@ -1,3 +1,5 @@
+import 'package:HomER_flutter/owner_Screens/houses_overview_screen.dart';
+import 'package:HomER_flutter/owner_Screens/payment_historyowner.dart';
 import 'package:flutter/material.dart';
 
 class OwnerDrawer extends StatefulWidget {
@@ -15,10 +17,51 @@ class _OwnerDrawerState extends State<OwnerDrawer> {
         child: Column(
           children: <Widget>[
             SizedBox(
-              height: 10,
+              height: 15,
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.exit_to_app,
+                color: Colors.deepPurple,
+              ),
+              title: Text(
+                'Owner Home',
+                style: TextStyle(
+                  fontSize: 15,
+                  color: Colors.deepPurple,
+                  fontWeight: FontWeight.w700,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              onTap: () {
+                Navigator.of(context)
+                    .pushReplacementNamed(HousesOverviewScreen.id);
+              },
             ),
             SizedBox(
-              height: 15,
+              height: 20,
+            ),
+            ListTile(
+              leading: Icon(
+                Icons.exit_to_app,
+                color: Colors.deepPurple,
+              ),
+              title: Text(
+                'Payment History',
+                style: TextStyle(
+                  fontSize: 15,
+                  color: Colors.deepPurple,
+                  fontWeight: FontWeight.w700,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              onTap: () {
+                Navigator.of(context)
+                    .pushReplacementNamed(PaymentHistoryOwner.id);
+              },
+            ),
+            SizedBox(
+              height: 20,
             ),
             ListTile(
               leading: Icon(

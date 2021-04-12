@@ -38,23 +38,30 @@ class _BuildingsOverviewScreenState extends State<BuildingsOverviewScreen> {
         elevation: 0,
         // centerTitle: true,
         title: Text(
-          'HomER',
+          'My Buildings',
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
         ),
         actions: [
           IconButton(
               icon: Icon(Icons.add),
               onPressed: () {
-                _billDialog(context);
+                _houseFormDialog(context);
               }),
         ],
       ),
       drawer: OwnerDrawer(),
       body: BuildingsGrid(),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
+        onPressed: () {},
+      ),
     );
   }
 
-  _billDialog(BuildContext context) async {
+  _houseFormDialog(BuildContext context) async {
     return showDialog(
         context: context,
         builder: (context) {
@@ -62,17 +69,21 @@ class _BuildingsOverviewScreenState extends State<BuildingsOverviewScreen> {
             content: Column(
               mainAxisSize: MainAxisSize.min,
               children: <Widget>[
-                TextField(decoration: InputDecoration(),
-                  textInputAction: TextInputAction.next,),
-                TextField(decoration: InputDecoration(labelText: 'Address'),
-                  textInputAction: TextInputAction.next,),
+                TextField(
+                  decoration: InputDecoration(),
+                  textInputAction: TextInputAction.next,
+                ),
+                TextField(
+                  decoration: InputDecoration(labelText: 'Address'),
+                  textInputAction: TextInputAction.next,
+                ),
                 TextField(
                   maxLines: 3,
                   decoration: InputDecoration(
                       labelText: 'Maintanence details',
                       border: const OutlineInputBorder(
                         borderSide:
-                        const BorderSide(color: Colors.grey, width: 0.0),
+                            const BorderSide(color: Colors.grey, width: 0.0),
                       ),
                       hintText: 'Example - +91 00000 00000',
                       focusColor: Colors.purple[900]),

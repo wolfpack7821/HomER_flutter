@@ -5,7 +5,7 @@ class Building {
   final String buildId;
   final String buildName;
   final String buildAddress;
-  List<Map<String, dynamic>> houses;
+  List<String> houses;
   bool isHome;
 
   Building({
