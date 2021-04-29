@@ -1,4 +1,4 @@
-import 'package:HomER_flutter/owner_Screens/houses_overview_screen.dart';
+import 'package:HomER_flutter/owner_Screens/buildings_overview_screen.dart';
 import 'package:HomER_flutter/owner_Screens/payment_historyowner.dart';
 import 'package:flutter/material.dart';
 
@@ -16,6 +16,19 @@ class _OwnerDrawerState extends State<OwnerDrawer> {
       child: Drawer(
         child: Column(
           children: <Widget>[
+            Padding(
+              padding: EdgeInsets.all(8.0),
+              child: DrawerHeader(
+                child: Container(
+                  height: 60,
+                  width: MediaQuery.of(context).size.width,
+                  child: Center(child: Text('Owner')),
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                ),
+              ),
+            ),
             SizedBox(
               height: 15,
             ),
@@ -34,8 +47,7 @@ class _OwnerDrawerState extends State<OwnerDrawer> {
                 textAlign: TextAlign.center,
               ),
               onTap: () {
-                Navigator.of(context)
-                    .pushReplacementNamed(HousesOverviewScreen.id);
+                Navigator.of(context).pushNamed(BuildingsOverviewScreen.id);
               },
             ),
             SizedBox(
@@ -56,8 +68,7 @@ class _OwnerDrawerState extends State<OwnerDrawer> {
                 textAlign: TextAlign.center,
               ),
               onTap: () {
-                Navigator.of(context)
-                    .pushReplacementNamed(PaymentHistoryOwner.id);
+                Navigator.of(context).pushNamed(PaymentHistoryOwner.id);
               },
             ),
             SizedBox(

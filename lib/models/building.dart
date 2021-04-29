@@ -6,6 +6,7 @@ class Building {
   final String buildName;
   final String buildAddress;
   List<String> houses;
+  final String maintenence;
   bool isHome;
 
   Building({
@@ -13,6 +14,7 @@ class Building {
     @required this.buildName,
     @required this.buildAddress,
     this.houses,
+    @required this.maintenence,
     this.isHome = false,
   });
 }

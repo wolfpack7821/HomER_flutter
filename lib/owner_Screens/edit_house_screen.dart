@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 
-class EditHouseScreen extends StatefulWidget {
+class AddHouse extends StatefulWidget {
   static const id = '/edit-house';
   @override
-  _EditHouseScreenState createState() => _EditHouseScreenState();
+  _AddHouseState createState() => _AddHouseState();
 }
 
-class _EditHouseScreenState extends State<EditHouseScreen> {
+class _AddHouseState extends State<AddHouse> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
         title: Text('Edit Product'),
       ),
       body: Padding(
@@ -19,11 +21,11 @@ class _EditHouseScreenState extends State<EditHouseScreen> {
           child: ListView(
             children: [
               TextFormField(
-                decoration: InputDecoration(labelText: 'Title'),
+                decoration: InputDecoration(labelText: 'HouseNumber'),
                 textInputAction: TextInputAction.next,
               ),
               TextFormField(
-                decoration: InputDecoration(labelText: 'Title'),
+                decoration: InputDecoration(labelText: 'Rent'),
                 textInputAction: TextInputAction.next,
               ),
             ],

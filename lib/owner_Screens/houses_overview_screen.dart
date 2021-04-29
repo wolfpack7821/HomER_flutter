@@ -29,7 +29,7 @@ class _HousesOverviewScreenState extends State<HousesOverviewScreen> {
           IconButton(
               icon: Icon(Icons.add),
               onPressed: () {
-                Navigator.of(context).pushNamed(EditHouseScreen.id);
+                Navigator.of(context).pushNamed(AddHouse.id);
               }),
         ],
       ),

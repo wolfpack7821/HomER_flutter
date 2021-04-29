@@ -1,3 +1,4 @@
+import 'package:HomER_flutter/owner_Screens/adding_building.dart';
 import 'package:HomER_flutter/widgets/owner/owner_drawer.dart';
 import 'package:flutter/material.dart';
 
@@ -45,7 +46,7 @@ class _BuildingsOverviewScreenState extends State<BuildingsOverviewScreen> {
           IconButton(
               icon: Icon(Icons.add),
               onPressed: () {
-                _houseFormDialog(context);
+                Navigator.of(context).pushNamed(AddingBuilding.id);
               }),
         ],
       ),
@@ -56,42 +57,10 @@ class _BuildingsOverviewScreenState extends State<BuildingsOverviewScreen> {
           Icons.add,
           color: Colors.white,
         ),
-        onPressed: () {},
+        onPressed: () {
+          Navigator.of(context).pushNamed(AddingBuilding.id);
+        },
       ),
     );
-  }
-
-  _houseFormDialog(BuildContext context) async {
-    return showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            content: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: <Widget>[
-                TextField(
-                  decoration: InputDecoration(),
-                  textInputAction: TextInputAction.next,
-                ),
-                TextField(
-                  decoration: InputDecoration(labelText: 'Address'),
-                  textInputAction: TextInputAction.next,
-                ),
-                TextField(
-                  maxLines: 3,
-                  decoration: InputDecoration(
-                      labelText: 'Maintanence details',
-                      border: const OutlineInputBorder(
-                        borderSide:
-                            const BorderSide(color: Colors.grey, width: 0.0),
-                      ),
-                      hintText: 'Example - +91 00000 00000',
-                      focusColor: Colors.purple[900]),
-                ),
-              ],
-            ),
-            actions: <Widget>[],
-          );
-        });
   }
 }

@@ -1,3 +1,4 @@
+import 'package:HomER_flutter/owner_Screens/adding_building.dart';
 import 'package:HomER_flutter/owner_Screens/owner_chat.dart';
 import 'package:HomER_flutter/owner_Screens/payment_historyowner.dart';
 import 'package:HomER_flutter/tenant_Screens/complaintPage.dart';
@@ -44,9 +45,10 @@ class MyApp extends StatelessWidget {
           PaymentHistoryOwner.id:(context) => PaymentHistoryOwner(),
           PaymentDetails.id:(context) =>PaymentDetails(),
           ComplaintPage.id: (context) => ComplaintPage(),
-          EditHouseScreen.id:(_) => EditHouseScreen(),
+          AddHouse.id:(_) => AddHouse(),
           OwnerChat.id:(_) =>OwnerChat(),
           PresentHome.id:(_) => PresentHome(),
+          AddingBuilding.id:(_) =>AddingBuilding(),
         },
       ),
     );
