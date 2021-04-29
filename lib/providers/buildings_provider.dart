@@ -8,34 +8,27 @@ class BuildingsProvider with ChangeNotifier {
       buildId: "01",
       buildName: "Building-1",
       buildAddress: "Address of Building-1",
-      houses: [
-        '101',
-        '201',
-        '301',
-        '401'
-      ],
+      maintenence: 'bvdsj',
+      houses: ['101', '201', '301', '401'],
     ),
     Building(
         buildId: "02",
         buildName: "Building-2",
         buildAddress: "Address of Building-2",
-        houses: [
-         '101'
-        ]),
+        maintenence: 'bvdsj',
+        houses: ['101']),
     Building(
         buildId: "03",
         buildName: "Building-3",
         buildAddress: "Address of Building-3",
-        houses: [
-        '201'
-        ]),
+        maintenence: 'bvdsj',
+        houses: ['201']),
     Building(
         buildId: "04",
         buildName: "Building-4",
         buildAddress: "Address of Building-4",
-        houses: [
-        '301'
-        ]),
+        maintenence: 'bvdsj',
+        houses: ['301']),
   ];
 
   List<Building> get items {
