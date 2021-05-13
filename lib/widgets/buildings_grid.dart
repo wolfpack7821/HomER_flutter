@@ -15,7 +15,7 @@ class BuildingsGrid extends StatelessWidget {
       itemCount: loadedBuildings.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 2,
-        childAspectRatio: 3 / 2,
+        childAspectRatio: 1.25,
         crossAxisSpacing: 8,
         mainAxisSpacing: 8,
       ),

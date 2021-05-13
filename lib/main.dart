@@ -1,8 +1,11 @@
+import 'package:HomER_flutter/models/house.dart';
 import 'package:HomER_flutter/owner_Screens/adding_building.dart';
+import 'package:HomER_flutter/owner_Screens/houseDetails.dart';
 import 'package:HomER_flutter/owner_Screens/owner_chat.dart';
 import 'package:HomER_flutter/owner_Screens/payment_historyowner.dart';
 import 'package:HomER_flutter/tenant_Screens/complaintPage.dart';
 import 'package:HomER_flutter/tenant_Screens/presentHome.dart';
+import 'package:HomER_flutter/tenant_Screens/searchHome.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -25,8 +28,10 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider<BuildingsProvider>(
-          create:(BuildContext context)=> BuildingsProvider(),
-        )
+          create: (BuildContext context) => BuildingsProvider(),
+        ),
+        ChangeNotifierProvider<Houses>(
+            create: (BuildContext context) => Houses())
       ],
       child: MaterialApp(
         title: 'HomER',
@@ -40,15 +45,17 @@ class MyApp extends StatelessWidget {
           TenetHome.id: (context) => TenetHome(),
           TenetProfile.id: (context) => TenetProfile(),
           HousesOverviewScreen.id: (_) => HousesOverviewScreen(),
-          BuildingsOverviewScreen.id:(context) => BuildingsOverviewScreen(),
+          BuildingsOverviewScreen.id: (context) => BuildingsOverviewScreen(),
           PaymentHistory.id: (context) => PaymentHistory(),
-          PaymentHistoryOwner.id:(context) => PaymentHistoryOwner(),
-          PaymentDetails.id:(context) =>PaymentDetails(),
+          PaymentHistoryOwner.id: (context) => PaymentHistoryOwner(),
+          PaymentDetails.id: (context) => PaymentDetails(),
           ComplaintPage.id: (context) => ComplaintPage(),
-          AddHouse.id:(_) => AddHouse(),
-          OwnerChat.id:(_) =>OwnerChat(),
-          PresentHome.id:(_) => PresentHome(),
-          AddingBuilding.id:(_) =>AddingBuilding(),
+          AddHouse.id: (_) => AddHouse(),
+          OwnerChat.id: (_) => OwnerChat(),
+          PresentHome.id: (_) => PresentHome(),
+          AddingBuilding.id: (_) => AddingBuilding(),
+          HouseDetails.id: (_) => HouseDetails(),
+          SearchHousePage.id: (_) => SearchHousePage()
         },
       ),
     );

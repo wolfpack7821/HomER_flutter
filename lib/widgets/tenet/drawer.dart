@@ -2,6 +2,7 @@ import 'package:HomER_flutter/tenant_Screens/home.dart';
 import 'package:HomER_flutter/tenant_Screens/payment_history.dart';
 import 'package:HomER_flutter/tenant_Screens/presentHome.dart';
 import 'package:HomER_flutter/tenant_Screens/profile.dart';
+import 'package:HomER_flutter/tenant_Screens/searchHome.dart';
 import 'package:flutter/material.dart';
 
 class MainDrawer extends StatefulWidget {
@@ -86,6 +87,27 @@ class _MainDrawerState extends State<MainDrawer> {
             SizedBox(
               height: 13,
             ),
+             ListTile(
+              leading: Icon(
+                Icons.search,
+                color: Colors.deepPurple,
+              ),
+              title: Text(
+                'Search Houses',
+                style: TextStyle(
+                  fontSize: 15,
+                  color: Colors.deepPurple,
+                  fontWeight: FontWeight.w700,
+                ),
+                textAlign: TextAlign.center,
+              ),
+              onTap: () {
+                Navigator.of(context).pushReplacementNamed(SearchHousePage.id);
+              },
+            ),
+            SizedBox(
+              height: 13,
+            ),
             ListTile(
               leading: Icon(
                 Icons.home,
@@ -101,7 +123,7 @@ class _MainDrawerState extends State<MainDrawer> {
                 textAlign: TextAlign.center,
               ),
               onTap: () {
-                Navigator.of(context).pushReplacementNamed(PresentHome.id);
+                Navigator.of(context).pushReplacementNamed(PresentHome.id,arguments: '103');
               },
             ),
             SizedBox(
@@ -130,11 +152,11 @@ class _MainDrawerState extends State<MainDrawer> {
             ),
             ListTile(
               leading: Icon(
-                Icons.account_circle,
+                Icons.car_rental,
                 color: Colors.deepPurple,
               ),
               title: Text(
-                'Profile',
+                'Transport facility',
                 style: TextStyle(
                   fontSize: 15,
                   color: Colors.deepPurple,

@@ -1,4 +1,5 @@
 import 'package:HomER_flutter/owner_Screens/edit_house_screen.dart';
+import 'package:HomER_flutter/owner_Screens/houseDetails.dart';
 import 'package:HomER_flutter/owner_Screens/owner_chat.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -40,6 +41,9 @@ class _HousesOverviewScreenState extends State<HousesOverviewScreen> {
             margin: EdgeInsets.symmetric(vertical: 4, horizontal: 5),
             elevation: 4,
             child: ListTile(
+              onTap: (){
+                Navigator.of(context).pushNamed(HouseDetails.id,arguments: loadedBuilding.houses[i]);
+              },
               leading: CircleAvatar(
                 backgroundColor: Colors.purple,
                 radius: 25,

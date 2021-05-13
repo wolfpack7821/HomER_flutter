@@ -9,11 +9,8 @@ class AddingBuilding extends StatefulWidget {
 
 class _AddingBuildingState extends State<AddingBuilding> {
   final _addressFocusNode = FocusNode();
-
   final _maintenenceFocusNode = FocusNode();
-
   final _buildnameFocusNode = FocusNode();
-
   final _form = GlobalKey<FormState>();
 
   var _addBuild = Building(
