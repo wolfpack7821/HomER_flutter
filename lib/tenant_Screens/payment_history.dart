@@ -1,6 +1,8 @@
+import 'package:HomER_flutter/tenant_Screens/payment_details.dart';
 import 'package:HomER_flutter/widgets/tenet/drawer.dart';
 import 'package:HomER_flutter/widgets/tenet/transaction.dart';
 import 'package:flutter/material.dart';
+
 // enum TransactionType { sent, received, pending }
 class PaymentHistory extends StatelessWidget {
   static const id = 'paymentHistory';
@@ -29,19 +31,24 @@ class PaymentHistory extends StatelessWidget {
         ),
         actions: [
           IconButton(
-              icon: Icon(Icons.question_answer_rounded), onPressed: (){}),
+              icon: Icon(Icons.question_answer_rounded), onPressed: () {}),
         ],
       ),
       drawer: MainDrawer(),
-      body: ListView.builder(
-        itemBuilder: (ctx, i) => Transaction(
-          receptient: 'OWNER X',
-          transactionAmount: '20',
-          transactionDate: 'Feb',
-          transactionInfo: 'xyz',
-          transactionType: TransactionType.sent,
+      body: InkWell(
+        onTap: () {
+          Navigator.of(context).pushNamed(PaymentDetails.id);
+        },
+        child: ListView.builder(
+          itemBuilder: (ctx, i) => Transaction(
+            receptient: 'OWNER X',
+            transactionAmount: '20',
+            transactionDate: 'Feb',
+            transactionInfo: 'xyz',
+            transactionType: TransactionType.sent,
+          ),
+          itemCount: 4,
         ),
-        itemCount: 4,
       ),
     );
   }

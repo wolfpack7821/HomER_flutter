@@ -1,8 +1,9 @@
 import 'package:flutter/foundation.dart';
 
-class House {
+class House with ChangeNotifier{
   final String buildId;
   final String houseId;
+  final String houseName;
   final String houseNumber;
   final String tenantName;
   final String tenantUname;
@@ -10,6 +11,8 @@ class House {
   final String houseAgreement;
   final double houseAdv;
   final double houseRent;
+  final String houseAddress;
+  final String houseImage;
   final double houseMaintenance;
   final bool isHouseWaterFixed;
   final double houseWater;
@@ -20,10 +23,13 @@ class House {
   House({
     @required this.buildId,
     @required this.houseId,
+    @required this.houseName,
     @required this.houseNumber,
+    @required this.houseImage,
     @required this.tenantName,
     @required this.tenantUname,
     @required this.tenantIdProof,
+    @required this.houseAddress,
     @required this.houseAgreement,
     @required this.houseAdv,
     @required this.houseRent,
@@ -34,4 +40,72 @@ class House {
     this.review,
     this.isVacant = true,
   });
+}
+
+
+class Houses with ChangeNotifier{
+List<House> _houses=[
+        House(
+        buildId: "01",
+        houseId: "G01",
+        houseName: 'house2',
+        houseImage: 'https://sumesshmenonassociates.com/wp-content/uploads/2020/10/emirate-hills-front-1.jpg',
+        houseAddress: 'this is a address of the house',
+        houseNumber: "G01",
+        tenantName: "Goutham K",
+        tenantUname: "k_gout",
+        tenantIdProof: "kgoutIdProof",
+        houseAgreement: "G01Agree",
+        houseAdv: 50000.00,
+        houseRent: 10000.00,
+        review: 'average',
+        houseMaintenance: 500.00,
+        isHouseWaterFixed: false,
+        isVacant: false
+      ),
+      House(
+        buildId: "01",
+        houseId: "101",
+        houseName: 'House1',
+        houseNumber: "101",
+         houseImage: 'https://sumesshmenonassociates.com/wp-content/uploads/2020/10/emirate-hills-front-1.jpg',
+        houseAddress: 'this is a address of the house',
+        tenantName: "Bala ",
+        tenantUname: "bala_dbs",
+        tenantIdProof: "balaIdProof",
+        houseAgreement: "G01Agree",
+        houseAdv: 52000.00,
+        houseRent: 11000.00,
+        houseMaintenance: 400.00,
+        review: 'Good',
+        isHouseWaterFixed: false,
+        isVacant: false
+      ),
+       House(
+        buildId: "01",
+        houseId: "103",
+        houseName: 'house3',
+        houseNumber: "103",
+         houseImage: 'https://sumesshmenonassociates.com/wp-content/uploads/2020/10/emirate-hills-front-1.jpg',
+        houseAddress: 'this is a address of the house',
+        tenantName: "",
+        tenantUname: "",
+        tenantIdProof: "",
+        houseAgreement: "G01Agree",
+        houseAdv: 52000.00,
+        houseRent: 11000.00,
+        houseMaintenance: 400.00,
+        review: 'bad',
+        isHouseWaterFixed: false,
+        isVacant: true
+      ),
+];
+
+ List<House> get houses {
+    return [..._houses];
+  }
+
+  House findById(String id) {
+    return _houses.firstWhere((houses) => houses.houseId == id);
+  }
 }

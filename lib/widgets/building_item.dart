@@ -1,3 +1,4 @@
+import 'package:HomER_flutter/owner_Screens/edit_house_screen.dart';
 import 'package:flutter/material.dart';
 
 import '../owner_Screens/houses_overview_screen.dart';
@@ -15,7 +16,8 @@ class BuildingItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).pushNamed(HousesOverviewScreen.id, arguments: buildId);
+
+        isHome?Navigator.of(context).pushNamed(AddHouse.id):Navigator.of(context).pushNamed(HousesOverviewScreen.id, arguments: buildId);
       },
       child: Container(
         padding: const EdgeInsets.all(15),
@@ -39,7 +41,18 @@ class BuildingItem extends StatelessWidget {
                 ),
               ),
             ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 6.0, horizontal: 0.0),
+              child: Text(
+                isHome?'Indvidual House':'Apartment',
+                style: TextStyle(
+                  fontSize: 20.0,
+                  color: Colors.white,
+                ),
+              ),
+            ),
           ],
+
         ),
         decoration: BoxDecoration(
           gradient: LinearGradient(

@@ -1,7 +1,9 @@
 // import 'package:HomER_flutter/widgets/tenet/details_field.dart';
+import 'package:HomER_flutter/models/house.dart';
 import 'package:HomER_flutter/widgets/tenet/drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:provider/provider.dart';
 
 class PresentHome extends StatefulWidget {
   static const id = 'PresentHome';
@@ -50,7 +52,7 @@ class _PresentHomeState extends State<PresentHome> {
       children: <Widget>[
         Text(
           stars + ' ',
-          style: TextStyle(fontFamily: 'PlayfairDisplay', fontSize: 14),
+          style: TextStyle(fontFamily: '', fontSize: 14),
         ),
         Icon(
           Icons.star,
@@ -62,7 +64,7 @@ class _PresentHomeState extends State<PresentHome> {
         filledBar(color, flex, width),
         Text(
           ' ' + count.toString(),
-          style: TextStyle(fontFamily: 'PlayfairDisplay', fontSize: 16),
+          style: TextStyle(fontFamily: '', fontSize: 16),
         )
       ],
     );
@@ -124,9 +126,7 @@ class _PresentHomeState extends State<PresentHome> {
         Text(
           rating,
           style: TextStyle(
-              fontFamily: 'PlayfairDisplay',
-              fontSize: 30,
-              fontWeight: FontWeight.bold),
+              fontFamily: '', fontSize: 30, fontWeight: FontWeight.bold),
         ),
         Container(
           width: width, //size.width * 0.5,
@@ -138,11 +138,11 @@ class _PresentHomeState extends State<PresentHome> {
         ),
         Text(
           ratingCount + ' ratings &',
-          style: TextStyle(fontFamily: 'PlayfairDisplay', fontSize: 15),
+          style: TextStyle(fontFamily: '', fontSize: 15),
         ),
         Text(
           reviewCount + ' reviews',
-          style: TextStyle(fontFamily: 'PlayfairDisplay', fontSize: 15),
+          style: TextStyle(fontFamily: '', fontSize: 15),
         )
       ],
     );
@@ -171,7 +171,7 @@ class _PresentHomeState extends State<PresentHome> {
                   children: <Widget>[
                     Text(
                       stars.toString(),
-                      style: TextStyle(fontFamily: 'PlayfairDisplay'),
+                      style: TextStyle(fontFamily: ''),
                     ),
                     filledStar()
                   ],
@@ -213,6 +213,13 @@ class _PresentHomeState extends State<PresentHome> {
   @override
   Widget build(BuildContext context) {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
+    final houseId = ModalRoute.of(context).settings.arguments as String;
+    print(houseId);
+
+    final loadedHouse = Provider.of<Houses>(
+      context,
+      listen: false,
+    ).findById(houseId);
     return Scaffold(
       key: _scaffoldKey,
       drawer: MainDrawer(),
@@ -230,10 +237,9 @@ class _PresentHomeState extends State<PresentHome> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: Text(
-          'Present Home',
+          'House Details',
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
         ),
-        actions: [IconButton(icon: Icon(Icons.camera_alt), onPressed: () {})],
       ),
       body: Padding(
         padding: const EdgeInsets.fromLTRB(12, 1, 12, 1),
@@ -276,7 +282,9 @@ class _PresentHomeState extends State<PresentHome> {
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Text(
-                'Lotas Apparments Banglore /403',
+                loadedHouse.houseId == ''
+                    ? 'Lotas Apparments Banglore /403'
+                    : loadedHouse.houseName,
                 softWrap: true,
                 style: TextStyle(
                   color: Colors.black,
@@ -369,6 +377,16 @@ class _PresentHomeState extends State<PresentHome> {
               padding: const EdgeInsets.all(8.0),
               child: Text(
                 'Maintenance no: 789487395',
+                style: TextStyle(
+                  color: Colors.black,
+                  fontSize: 18,
+                ),
+              ),
+            ),
+             Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                'Is Vacant: ${loadedHouse.isVacant}',
                 style: TextStyle(
                   color: Colors.black,
                   fontSize: 18,
