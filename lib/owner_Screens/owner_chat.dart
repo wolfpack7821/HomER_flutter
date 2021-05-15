@@ -22,11 +22,6 @@ class _OwnerChatState extends State<OwnerChat> {
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
         ),
         actions: [
-          FlatButton(
-            onPressed: (){
-            },
-            child: Text('Vacat'),
-          ),
           IconButton(
               icon: Icon(Icons.question_answer_rounded), onPressed: (){
                 Navigator.of(context).pushNamed(ComplaintPage.id);
