@@ -1,4 +1,3 @@
-// import 'package:HomER_flutter/owner_Screens/houses_overview_screen.dart';
 import 'package:HomER_flutter/tenant_Screens/home.dart';
 import 'package:flutter/material.dart';
 import '../owner_Screens/buildings_overview_screen.dart';
@@ -166,7 +165,6 @@ class _LoginPageState extends State<LoginPage> {
                     child: _authMode == AuthMode.Signup?TextFormField(
                       decoration:
                           InputDecoration(labelText: 'Full Name'),
-                      obscureText: true,
                     ):Container(),
                   ),
                   _authMode == AuthMode.Signup? TextFormField(
