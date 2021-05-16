@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../providers/buildings_provider.dart';
+import '../models/building.dart';
 import './building_item.dart';
 
 class BuildingsGrid extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final buildingsData = Provider.of<BuildingsProvider>(context);
+    final buildingsData = Provider.of<Buildings>(context);
     final loadedBuildings = buildingsData.items;
     return GridView.builder(
       padding: const EdgeInsets.all(10.0),
       itemCount: loadedBuildings.length,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-        crossAxisCount: 2,
-        childAspectRatio: 1.25,
+        crossAxisCount: 1,
+        childAspectRatio: 5/2,
         crossAxisSpacing: 8,
         mainAxisSpacing: 8,
       ),

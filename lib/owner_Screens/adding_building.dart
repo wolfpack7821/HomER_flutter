@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import '../models/building.dart';
 
 class AddingBuilding extends StatefulWidget {
@@ -34,7 +35,14 @@ class _AddingBuildingState extends State<AddingBuilding> {
       print('Switch Button is OFF');
     }
   }
-
+  void _submit(){
+    final isValid = _form.currentState.validate();
+    if (!isValid) {
+      return;
+    }
+    Provider.of<Buildings>(context,listen: false).addBuilding(_addBuild);
+    Navigator.of(context).pop();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -175,8 +183,9 @@ class _AddingBuildingState extends State<AddingBuilding> {
                           'Save Building',
                         ),
                         onPressed: () {
-                          print(
-                              'Added-${_addBuild.buildAddress},${_addBuild.buildId},${_addBuild.buildName},${_addBuild.maintenence},${_addBuild.isHome}');
+                          _submit();
+                          // print(
+                          //     'Added-${_addBuild.buildAddress},${_addBuild.buildId},${_addBuild.buildName},${_addBuild.maintenence},${_addBuild.isHome}');
                         },
                       )
                     ],

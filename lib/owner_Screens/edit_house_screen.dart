@@ -1,3 +1,4 @@
+import 'package:HomER_flutter/models/building.dart';
 import 'package:HomER_flutter/models/house.dart';
 // import 'package:HomER_flutter/owner_Screens/houseDetails.dart';
 import 'package:HomER_flutter/owner_Screens/image_preview.dart';
@@ -5,6 +6,8 @@ import 'package:HomER_flutter/owner_Screens/uploadFiles.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
+
+import 'package:provider/provider.dart';
 
 class AddHouse extends StatefulWidget {
   static const id = '/edit-house';
@@ -22,11 +25,11 @@ class _AddHouseState extends State<AddHouse> {
   final _form = GlobalKey<FormState>();
   File _image;
   var _addHouse = House(
-      buildId: DateTime.now().toString(),
+      buildId: '01',
       houseId: DateTime.now().toString(),
       houseName: '',
       houseNumber: '',
-      houseImage: '',
+      houseImage: 'https://sumesshmenonassociates.com/wp-content/uploads/2020/10/emirate-hills-front-1.jpg',
       tenantName: '',
       tenantUname: '',
       tenantIdProof: '',
@@ -42,12 +45,10 @@ class _AddHouseState extends State<AddHouse> {
     if (!isValid) {
       return;
     }
-    print(_addHouse.buildId);
-    print(_addHouse.houseId);
-    print(_addHouse.houseAddress);
-    print(_addHouse.houseRent);
-    print(_addHouse.houseAdv);
-    print(_addHouse.houseMaintenance);
+    Provider.of<Houses>(context, listen: false).addHouse(_addHouse);
+    Provider.of<Buildings>(context,listen: false)
+        .addHouse(_addHouse.buildId, _addHouse.houseId);
+    Navigator.of(context).pop();    
   }
 
   final picker = ImagePicker();
@@ -65,6 +66,22 @@ class _AddHouseState extends State<AddHouse> {
 
   @override
   Widget build(BuildContext context) {
+    final id = ModalRoute.of(context).settings.arguments;
+    _addHouse = House(
+      buildId: id,
+      houseId: DateTime.now().toString(),
+      houseName: '',
+      houseNumber: '',
+      houseImage: 'https://sumesshmenonassociates.com/wp-content/uploads/2020/10/emirate-hills-front-1.jpg',
+      tenantName: '',
+      tenantUname: '',
+      tenantIdProof: '',
+      houseAddress: '',
+      houseAgreement: '',
+      houseAdv: 0,
+      houseRent: 0,
+      houseMaintenance: 0,
+      isHouseWaterFixed: false);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
@@ -185,7 +202,7 @@ class _AddHouseState extends State<AddHouse> {
                         houseAddress: _addHouse.houseAddress,
                         houseAgreement: _addHouse.houseAgreement,
                         houseAdv: _addHouse.houseAdv,
-                        houseRent:double.parse(value),
+                        houseRent: double.parse(value),
                         houseMaintenance: _addHouse.houseMaintenance,
                         isHouseWaterFixed: _addHouse.isHouseWaterFixed,
                         isVacant: _addHouse.isVacant);
@@ -315,7 +332,7 @@ class _AddHouseState extends State<AddHouse> {
                     RaisedButton(
                       color: Colors.deepPurple,
                       onPressed: () {
-                       _submit();
+                        _submit();
                       },
                       child: Text(
                         'Save House',

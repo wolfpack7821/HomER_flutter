@@ -1,10 +1,11 @@
+import 'package:HomER_flutter/models/house.dart';
 import 'package:HomER_flutter/owner_Screens/edit_house_screen.dart';
 import 'package:HomER_flutter/owner_Screens/houseDetails.dart';
 import 'package:HomER_flutter/owner_Screens/owner_chat.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../providers/buildings_provider.dart';
+import '../models/building.dart';
 
 class HousesOverviewScreen extends StatefulWidget {
   static const id = '/houses-overview-screen';
@@ -19,8 +20,7 @@ class _HousesOverviewScreenState extends State<HousesOverviewScreen> {
     final buildId = ModalRoute.of(context).settings.arguments
         as String; // is the building Id
     final loadedBuilding =
-        Provider.of<BuildingsProvider>(context, listen: false)
-            .findById(buildId);
+        Provider.of<Buildings>(context, listen: false).findById(buildId);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
@@ -30,7 +30,8 @@ class _HousesOverviewScreenState extends State<HousesOverviewScreen> {
           IconButton(
               icon: Icon(Icons.add),
               onPressed: () {
-                Navigator.of(context).pushNamed(AddHouse.id);
+                Navigator.of(context)
+                    .pushNamed(AddHouse.id, arguments: buildId);
               }),
         ],
       ),
@@ -41,8 +42,15 @@ class _HousesOverviewScreenState extends State<HousesOverviewScreen> {
             margin: EdgeInsets.symmetric(vertical: 4, horizontal: 5),
             elevation: 4,
             child: ListTile(
-              onTap: (){
-                Navigator.of(context).pushNamed(HouseDetails.id,arguments: loadedBuilding.houses[i]);
+              onLongPress: () {
+                Provider.of<Houses>(context,listen:false).deleteHouse(loadedBuilding.houses[i]);
+                Provider.of<Buildings>(context,listen:false).deleteHouse(buildId, loadedBuilding.houses[i]);
+                Navigator.of(context)
+                .pushReplacementNamed(HousesOverviewScreen.id, arguments: buildId);
+              },
+              onTap: () {
+                Navigator.of(context).pushNamed(HouseDetails.id,
+                    arguments: loadedBuilding.houses[i]);
               },
               leading: CircleAvatar(
                 backgroundColor: Colors.purple,
