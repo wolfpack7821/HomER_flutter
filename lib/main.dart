@@ -12,7 +12,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import './owner_Screens/houses_overview_screen.dart';
-import './providers/buildings_provider.dart';
+import './models/building.dart';
 import './login/loginscreen.dart';
 import './login/welcome.dart';
 import './owner_Screens/buildings_overview_screen.dart';
@@ -29,8 +29,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider<BuildingsProvider>(
-          create: (BuildContext context) => BuildingsProvider(),
+        ChangeNotifierProvider<Buildings>(
+          create: (BuildContext context) => Buildings(),
         ),
         ChangeNotifierProvider<Houses>(
             create: (BuildContext context) => Houses())

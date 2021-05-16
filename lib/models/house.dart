@@ -47,7 +47,7 @@ class Houses with ChangeNotifier{
 List<House> _houses=[
         House(
         buildId: "01",
-        houseId: "G01",
+        houseId: "101",
         houseName: 'house2',
         houseImage: 'https://sumesshmenonassociates.com/wp-content/uploads/2020/10/emirate-hills-front-1.jpg',
         houseAddress: 'this is a address of the house',
@@ -64,7 +64,7 @@ List<House> _houses=[
         isVacant: false
       ),
       House(
-        buildId: "01",
+        buildId: "02",
         houseId: "101",
         houseName: 'House1',
         houseNumber: "101",
@@ -82,7 +82,7 @@ List<House> _houses=[
         isVacant: false
       ),
        House(
-        buildId: "01",
+        buildId: "03",
         houseId: "103",
         houseName: 'house3',
         houseNumber: "103",
@@ -108,4 +108,14 @@ List<House> _houses=[
   House findById(String id) {
     return _houses.firstWhere((houses) => houses.houseId == id);
   }
+  void addHouse( House house){
+    _houses.add(house);
+    print(house.houseAddress);
+    notifyListeners();
+  }
+  void deleteHouse(String id){
+    _houses.remove(_houses.firstWhere((element) => element.houseId == id));
+    notifyListeners();
+  }
+
 }
