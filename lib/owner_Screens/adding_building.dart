@@ -15,11 +15,11 @@ class _AddingBuildingState extends State<AddingBuilding> {
   final _form = GlobalKey<FormState>();
 
   var _addBuild = Building(
-    buildId: '',
-    buildAddress: 'bcj',
+    buildId: DateTime.now().toIso8601String(),
+    buildAddress: '',
     buildName: '',
     maintenence: '',
-    houses: [],
+    houses: ['1'],
     isHome: false,
   );
   void toggleSwitch(bool value) {
@@ -27,12 +27,10 @@ class _AddingBuildingState extends State<AddingBuilding> {
       setState(() {
         _addBuild.isHome = true;
       });
-      print('Switch Button is ON');
     } else {
       setState(() {
         _addBuild.isHome = false;
       });
-      print('Switch Button is OFF');
     }
   }
   void _submit(){
@@ -81,6 +79,7 @@ class _AddingBuildingState extends State<AddingBuilding> {
                         buildName: value,
                         buildAddress: _addBuild.buildAddress,
                         maintenence: _addBuild.maintenence,
+                        houses: _addBuild.houses,
                         isHome: _addBuild.isHome,
                         buildId: DateTime.now().toString(),
                       );
@@ -104,6 +103,7 @@ class _AddingBuildingState extends State<AddingBuilding> {
                     onChanged: (value) {
                       _addBuild = Building(
                         buildAddress: value,
+                        houses: _addBuild.houses,
                         buildName: _addBuild.buildName,
                         maintenence: _addBuild.maintenence,
                         isHome: _addBuild.isHome,
@@ -137,6 +137,7 @@ class _AddingBuildingState extends State<AddingBuilding> {
                     onChanged: (value) {
                       _addBuild = Building(
                         maintenence: value,
+                        houses: _addBuild.houses,
                         buildAddress: _addBuild.buildAddress,
                         buildName: _addBuild.buildName,
                         isHome: _addBuild.isHome,

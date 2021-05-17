@@ -1,6 +1,9 @@
+import 'package:HomER_flutter/models/house.dart';
+import 'package:HomER_flutter/owner_Screens/edit_house_screen.dart';
 import 'package:HomER_flutter/widgets/owner/owner_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
+import 'package:provider/provider.dart';
 
 class HouseDetails extends StatefulWidget {
   static const id = 'HouseDetails';
@@ -9,10 +12,36 @@ class HouseDetails extends StatefulWidget {
 }
 
 class _HouseDetailsState extends State<HouseDetails> {
+  Widget fields(String field, value) {
+    return Row(
+      children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(8.0, 5, 8, 5),
+          child: Text(
+            '$field:',
+            style: TextStyle(
+                color: Colors.black, fontSize: 19, fontWeight: FontWeight.bold),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(8.0, 5, 8, 5),
+          child: Text(
+            '$value',
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 21,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
     final houseId = ModalRoute.of(context).settings.arguments as String;
+    House house = Provider.of<Houses>(context,listen: false).findById(houseId);
     return Scaffold(
       key: _scaffoldKey,
       drawer: OwnerDrawer(),
@@ -47,39 +76,25 @@ class _HouseDetailsState extends State<HouseDetails> {
               child: Card(
                 child: Container(
                   height: 300,
-                  child: ListView(
+                  child: ListView.builder(
                     scrollDirection: Axis.horizontal,
-                    children: <Widget>[
-                      Padding(
+                    itemBuilder: (context, i) {
+                      return Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: Container(
-                          child: Image.network(
-                              'https://sumesshmenonassociates.com/wp-content/uploads/2020/10/emirate-hills-front-1.jpg'),
+                          child: Image.network('${house.houseImage}'),
                         ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          child: Image.network(
-                              'https://sumesshmenonassociates.com/wp-content/uploads/2020/10/emirate-hills-front-1.jpg'),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(8.0,10,8,10),
-                        child: Container(
-                          child: Image.network(
-                              'https://sumesshmenonassociates.com/wp-content/uploads/2020/10/emirate-hills-front-1.jpg'),
-                        ),
-                      ),
-                    ],
+                      );
+                    },
+                    itemCount: 3,
                   ),
                 ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(8.0,10,8,10),
+              padding: const EdgeInsets.fromLTRB(8.0, 10, 8, 10),
               child: Text(
-                'Lotas Apparments Banglore /403 $houseId',
+                '${house.houseName}/${house.houseNumber}',
                 softWrap: true,
                 style: TextStyle(
                   color: Colors.black,
@@ -118,90 +133,23 @@ class _HouseDetailsState extends State<HouseDetails> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(8.0,10,8,10),
+              padding: const EdgeInsets.fromLTRB(8.0, 10, 8, 10),
               child: Text(
-                'This is the address of the you\'re home',
-                style: TextStyle(color: Colors.grey, fontSize: 20),
+                '${house.houseAddress}',
+                style: TextStyle(color: Colors.black, fontSize: 20),
               ),
             ),
+            fields('Rent', '₹${house.houseRent}'),
+            fields('Advance', '₹${house.houseAdv}'),
+            fields('Owner', 'XYZ'),
+            fields('Owner ContactNo', '${house.contactNO}'),
+            fields('Menitenance Details', '₹${house.houseMaintenance}'),
+            fields('TenetName', '${house.tenantName}'),
+            fields('No Of Members', '4'),
             Row(
               children: [
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(8.0,10,8,10),
-                  child: Text(
-                    'Rent: ₹1000',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 18,
-                    ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(8.0,10,8,10),
-                  child: Text(
-                    'Advance: ₹1000',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 18,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(8.0,10,8,10),
-              child: Text(
-                'Owner: XYZ',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 18,
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(8.0,10,8,10),
-              child: Text(
-                'Owner contact: 9809303909',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 18,
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(8.0,10,8,10),
-              child: Text(
-                'Maintenance Details: 789487395',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 18,
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(8.0,10,8,10),
-              child: Text(
-                'Tenetname: Tenet x',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 18,
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(8.0,10,8,10),
-              child: Text(
-                'Number of members in house: 4',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 18,
-                ),
-              ),
-            ),
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(8.0,10,8,10),
+                  padding: const EdgeInsets.fromLTRB(8.0, 10, 8, 10),
                   child: Text(
                     'Files related to the house',
                     style: TextStyle(
@@ -222,22 +170,15 @@ class _HouseDetailsState extends State<HouseDetails> {
       ),
       floatingActionButton: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: RaisedButton.icon(
-          shape: RoundedRectangleBorder(
-              borderRadius: new BorderRadius.circular(30.0)),
-          color: Colors.deepPurple,
-          onPressed: () {},
-          icon: Icon(
+        child: FloatingActionButton(
+          backgroundColor: Colors.deepOrange,
+          onPressed: () {
+            Navigator.of(context).pushNamed(AddHouse.id);
+          },
+          child: Icon(
             Icons.edit,
-            size: 20,
+            size: 30,
             color: Colors.white,
-          ),
-          label: Text(
-            'edit',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 18,
-            ),
           ),
         ),
       ),
