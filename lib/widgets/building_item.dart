@@ -1,5 +1,6 @@
 import 'package:HomER_flutter/models/building.dart';
 import 'package:HomER_flutter/owner_Screens/buildings_overview_screen.dart';
+import 'package:HomER_flutter/owner_Screens/edit_house_screen.dart';
 import 'package:HomER_flutter/owner_Screens/houseDetails.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -17,12 +18,18 @@ class BuildingItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final loadedBuilding = Provider.of<Buildings>(context).findById(buildId);
     return GestureDetector(
       onTap: () {
-        isHome
-            ? Navigator.of(context).pushNamed(HouseDetails.id)
-            : Navigator.of(context)
-                .pushNamed(HousesOverviewScreen.id, arguments: buildId);
+        if (isHome) {
+          loadedBuilding.houses.isEmpty
+              ? Navigator.of(context).pushNamed(AddHouse.id,arguments: buildId)
+              : Navigator.of(context).pushNamed(HouseDetails.id,
+                  arguments: loadedBuilding.houses[0]);
+        } else {
+          Navigator.of(context)
+              .pushNamed(HousesOverviewScreen.id, arguments: buildId);
+        }
       },
       child: Container(
         padding: const EdgeInsets.all(15),
@@ -44,7 +51,7 @@ class BuildingItem extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(
                       vertical: 6.0, horizontal: 0.0),
                   child: Text(
-                    buildName,
+                    buildName.length>25?'${buildName.substring(0,25)}...':buildName,
                     style: TextStyle(
                       fontSize: 20.0,
                       color: Colors.white,
@@ -69,7 +76,11 @@ class BuildingItem extends StatelessWidget {
               ],
             ),
             IconButton(
-                icon: Icon(Icons.delete,color: Colors.white,size: 42,),
+                icon: Icon(
+                  Icons.delete,
+                  color: Colors.white,
+                  size: 42,
+                ),
                 onPressed: () {
                   print(buildId);
                   Provider.of<Buildings>(context, listen: false)
