@@ -1,5 +1,6 @@
 import 'package:HomER_flutter/models/house.dart';
 import 'package:HomER_flutter/owner_Screens/edit_house_screen.dart';
+import 'package:HomER_flutter/owner_Screens/manageTenet.dart';
 import 'package:HomER_flutter/widgets/owner/owner_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -41,7 +42,7 @@ class _HouseDetailsState extends State<HouseDetails> {
   Widget build(BuildContext context) {
     final _scaffoldKey = GlobalKey<ScaffoldState>();
     final houseId = ModalRoute.of(context).settings.arguments as String;
-    House house = Provider.of<Houses>(context,listen: false).findById(houseId);
+    House house = Provider.of<Houses>(context, listen: false).findById(houseId);
     return Scaffold(
       key: _scaffoldKey,
       drawer: OwnerDrawer(),
@@ -63,7 +64,11 @@ class _HouseDetailsState extends State<HouseDetails> {
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
         ),
         actions: [
-          FlatButton(onPressed: () {}, child: Text('Manage Tenet')),
+          FlatButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed(ManageTenet.id);
+              },
+              child: Text('Manage Tenet')),
           IconButton(icon: Icon(Icons.camera_alt), onPressed: () {})
         ],
       ),

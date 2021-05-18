@@ -94,6 +94,20 @@ class _AddHouseState extends State<AddHouse> {
         backgroundColor: Colors.transparent,
         elevation: 0,
         title: Text('Add House'),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: FlatButton(
+              onPressed: () {
+                _submit(id);
+              },
+              child: Text(
+                'Save House',
+                style: TextStyle(color: Colors.black, fontSize: 15),
+              ),
+            ),
+          ),
+        ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -105,8 +119,14 @@ class _AddHouseState extends State<AddHouse> {
                 children: [
                   FlatButton.icon(
                     onPressed: getImage,
-                    icon: Icon(Icons.camera_alt),
-                    label: Text('Upload Images of house'),
+                    icon: Icon(
+                      Icons.camera_alt,
+                      color: Colors.deepPurple,
+                    ),
+                    label: Text(
+                      'Upload Images of house',
+                      style: TextStyle(color: Colors.deepPurple),
+                    ),
                   ),
                   FlatButton(
                     onPressed: _image != null
@@ -115,7 +135,10 @@ class _AddHouseState extends State<AddHouse> {
                                 .pushNamed(ImagePreview.id, arguments: _image);
                           }
                         : null,
-                    child: Text('Preview'),
+                    child: Text(
+                      'Preview',
+                      style: _image == null?TextStyle(color:Colors.grey):TextStyle(color:Colors.deepOrange),
+                    ),
                   ),
                 ],
               ),
@@ -366,31 +389,20 @@ class _AddHouseState extends State<AddHouse> {
                     'Upload House related doc that should be showen to you\'re Tenet'),
               ),
               FlatButton.icon(
-                  onPressed: () {
-                    Navigator.of(context).pushNamed(FilePickerDemo.id);
-                  },
-                  icon: Icon(Icons.file_upload),
-                  label: Text('Upload Files')),
+                onPressed: () {
+                  Navigator.of(context).pushNamed(FilePickerPage.id);
+                },
+                icon: Icon(
+                  Icons.file_upload,
+                  color: Colors.black,
+                ),
+                label: Text(
+                  'Upload Files',
+                  style: TextStyle(color: Colors.black),
+                ),
+              ),
             ],
           ),
-        ),
-      ),
-      floatingActionButton: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.end,
-          children: [
-            RaisedButton(
-              color: Colors.deepPurple,
-              onPressed: () {
-                _submit(id);
-              },
-              child: Text(
-                'Save House',
-                style: TextStyle(color: Colors.white,fontSize: 28),
-              ),
-            )
-          ],
         ),
       ),
     );

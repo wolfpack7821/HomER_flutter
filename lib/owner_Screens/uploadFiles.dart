@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:file_picker/file_picker.dart';
 
-class FilePickerDemo extends StatefulWidget {
+class FilePickerPage extends StatefulWidget {
   static const id = 'file_picker';
   @override
-  _FilePickerDemoState createState() => _FilePickerDemoState();
+  _FilePickerPageState createState() => _FilePickerPageState();
 }
 
-class _FilePickerDemoState extends State<FilePickerDemo> {
+class _FilePickerPageState extends State<FilePickerPage> {
   String _fileName;
   List<PlatformFile> _paths;
   String _directoryPath;

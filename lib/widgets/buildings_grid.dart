@@ -11,7 +11,10 @@ class BuildingsGrid extends StatelessWidget {
     final loadedBuildings = buildingsData.items;
     return loadedBuildings.length == 0
         ? Center(
-            child: Icon(Icons.hourglass_empty, size: 80),
+            child: Image.asset(
+              'assets/waiting.png',
+              height: MediaQuery.of(context).size.height*.7
+            )
           )
         : GridView.builder(
             padding: const EdgeInsets.all(10.0),

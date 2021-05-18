@@ -35,48 +35,55 @@ class _HousesOverviewScreenState extends State<HousesOverviewScreen> {
               }),
         ],
       ),
-      body: ListView.builder(
-        itemCount: loadedBuilding.houses.length,
-        itemBuilder: (ctx, i) {
-          return Card(
-            margin: EdgeInsets.symmetric(vertical: 4, horizontal: 5),
-            elevation: 4,
-            child: ListTile(
-              onLongPress: () {
-                Provider.of<Houses>(context,listen:false).deleteHouse(loadedBuilding.houses[i]);
-                Provider.of<Buildings>(context,listen:false).deleteHouse(buildId, loadedBuilding.houses[i]);
-                Navigator.of(context)
-                .pushReplacementNamed(HousesOverviewScreen.id, arguments: buildId);
-              },
-              onTap: () {
-                Navigator.of(context).pushNamed(HouseDetails.id,
-                    arguments: loadedBuilding.houses[i]);
-              },
-              leading: CircleAvatar(
-                backgroundColor: Colors.purple,
-                radius: 25,
-                child: FittedBox(
-                  child: Text(
-                    loadedBuilding.houses[i],
-                    style: TextStyle(
-                        fontWeight: FontWeight.bold, color: Colors.white),
+      body: loadedBuilding.houses.isEmpty
+          ? Center(
+              child: Image.asset('assets/waiting.png',
+                  height: MediaQuery.of(context).size.height * .7))
+          : ListView.builder(
+              itemCount: loadedBuilding.houses.length,
+              itemBuilder: (ctx, i) {
+                return Card(
+                  margin: EdgeInsets.symmetric(vertical: 4, horizontal: 5),
+                  elevation: 4,
+                  child: ListTile(
+                    onLongPress: () {
+                      Provider.of<Houses>(context, listen: false)
+                          .deleteHouse(loadedBuilding.houses[i]);
+                      Provider.of<Buildings>(context, listen: false)
+                          .deleteHouse(buildId, loadedBuilding.houses[i]);
+                      Navigator.of(context).pushReplacementNamed(
+                          HousesOverviewScreen.id,
+                          arguments: buildId);
+                    },
+                    onTap: () {
+                      Navigator.of(context).pushNamed(HouseDetails.id,
+                          arguments: loadedBuilding.houses[i]);
+                    },
+                    leading: CircleAvatar(
+                      backgroundColor: Colors.purple,
+                      radius: 25,
+                      child: FittedBox(
+                        child: Text(
+                          loadedBuilding.houses[i],
+                          style: TextStyle(
+                              fontWeight: FontWeight.bold, color: Colors.white),
+                        ),
+                      ),
+                    ),
+                    title: Text('${loadedBuilding.houses[i]} tenent'),
+                    subtitle: Text(
+                      'username',
+                      style: TextStyle(color: Colors.grey),
+                    ),
+                    trailing: IconButton(
+                        icon: Icon(Icons.messenger_outline),
+                        onPressed: () {
+                          Navigator.of(context).pushNamed(OwnerChat.id);
+                        }),
                   ),
-                ),
-              ),
-              title: Text('${loadedBuilding.houses[i]} tenent'),
-              subtitle: Text(
-                'username',
-                style: TextStyle(color: Colors.grey),
-              ),
-              trailing: IconButton(
-                  icon: Icon(Icons.messenger_outline),
-                  onPressed: () {
-                    Navigator.of(context).pushNamed(OwnerChat.id);
-                  }),
+                );
+              },
             ),
-          );
-        },
-      ),
     );
   }
 }

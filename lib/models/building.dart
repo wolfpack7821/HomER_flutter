@@ -20,35 +20,35 @@ class Building {
 
 class Buildings with ChangeNotifier {
   List<Building> _items = [
-    // Building(
-    //     buildId: "01",
-    //     buildName: "Building-1",
-    //     buildAddress: "Address of Building-1",
-    //     maintenence: 'bvdsj',
-    //     houses: ['101', '201', '301', '401'],
-    //     isHome: false),
-    // Building(
-    //   buildId: "02",
-    //   buildName: "Building-2",
-    //   buildAddress: "Address of Building-2",
-    //   maintenence: 'bvdsj',
-    //   houses: ['101'],
-    //   isHome: true,
-    // ),
-    // Building(
-    //     buildId: "03",
-    //     buildName: "Building-3",
-    //     buildAddress: "Address of Building-3",
-    //     maintenence: 'bvdsj',
-    //     houses: ['103'],
-    //     isHome: false),
-    // Building(
-    //     buildId: "04",
-    //     buildName: "Building-4",
-    //     buildAddress: "Address of Building-4",
-    //     maintenence: 'bvdsj',
-    //     houses: ['301'],
-    //     isHome: false),
+    Building(
+        buildId: "01",
+        buildName: "Building-1",
+        buildAddress: "Address of Building-1",
+        maintenence: 'bvdsj',
+        houses: ['101', '201', '301', '401'],
+        isHome: false),
+    Building(
+      buildId: "02",
+      buildName: "Building-2",
+      buildAddress: "Address of Building-2",
+      maintenence: 'bvdsj',
+      houses: ['101'],
+      isHome: true,
+    ),
+    Building(
+        buildId: "03",
+        buildName: "Building-3",
+        buildAddress: "Address of Building-3",
+        maintenence: 'bvdsj',
+        houses: ['103'],
+        isHome: false),
+    Building(
+        buildId: "04",
+        buildName: "Building-4",
+        buildAddress: "Address of Building-4",
+        maintenence: 'bvdsj',
+        houses: ['301'],
+        isHome: false),
   ];
 
   List<Building> get items {

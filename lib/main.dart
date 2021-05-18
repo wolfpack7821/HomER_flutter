@@ -2,6 +2,7 @@ import 'package:HomER_flutter/models/house.dart';
 import 'package:HomER_flutter/owner_Screens/adding_building.dart';
 import 'package:HomER_flutter/owner_Screens/houseDetails.dart';
 import 'package:HomER_flutter/owner_Screens/image_preview.dart';
+import 'package:HomER_flutter/owner_Screens/manageTenet.dart';
 import 'package:HomER_flutter/owner_Screens/owner_chat.dart';
 import 'package:HomER_flutter/owner_Screens/payment_historyowner.dart';
 import 'package:HomER_flutter/owner_Screens/uploadFiles.dart';
@@ -58,8 +59,9 @@ class MyApp extends StatelessWidget {
           AddingBuilding.id: (_) => AddingBuilding(),
           HouseDetails.id: (_) => HouseDetails(),
           SearchHousePage.id: (_) => SearchHousePage(),
-          FilePickerDemo.id: (_) => FilePickerDemo(),
+          FilePickerPage.id: (_) => FilePickerPage(),
           ImagePreview.id:(_) =>ImagePreview(),
+          ManageTenet.id:(_) =>ManageTenet()
         },
       ),
     );
