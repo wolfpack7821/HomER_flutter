@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "403291501248",
+    "project_id": "housingflutter",
+    "storage_bucket": "housingflutter.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:403291501248:android:b88ced9422d40516413325",
+        "android_client_info": {
+          "package_name": "com.example.HomER_flutter"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "403291501248-ti13kpd34ioqsr5u67bsit542cuvi0ov.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.HomER_flutter",
+            "certificate_hash": "6e7ee4ecc990c52d747470375ea003c8c8cdd18e"
+          }
+        },
+        {
+          "client_id": "403291501248-oj997h79m4g5p6phivo9q2s3glkl12jr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDwUx8Km1Ie7cOPcQEQNR4Aj0BFmIivFC8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "403291501248-oj997h79m4g5p6phivo9q2s3glkl12jr.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
