@@ -4,6 +4,7 @@ import 'package:HomER_flutter/tenant_Screens/presentHome.dart';
 import 'package:HomER_flutter/tenant_Screens/profile.dart';
 import 'package:HomER_flutter/tenant_Screens/searchHome.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class MainDrawer extends StatefulWidget {
   @override
@@ -188,6 +189,7 @@ class _MainDrawerState extends State<MainDrawer> {
               onTap: () {
                 Navigator.of(context).pop();
                 Navigator.of(context).pushReplacementNamed('/');
+                FirebaseAuth.instance.signOut();
                 // Provider.of<Auth>(context, listen: false).logout();
               },
             ),

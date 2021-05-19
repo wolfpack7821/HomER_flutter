@@ -1,26 +1,88 @@
 import 'package:HomER_flutter/tenant_Screens/home.dart';
 import 'package:flutter/material.dart';
 import '../owner_Screens/buildings_overview_screen.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+// import 'package:firebase_storage/firebase_storage.dart';
 
 enum AuthMode { Signup, Login }
 
 class LoginPage extends StatefulWidget {
   static const String id = '/LoginPage';
-
   @override
   _LoginPageState createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
+  final _auth = FirebaseAuth.instance;
   final GlobalKey<FormState> _formKey = GlobalKey();
   AuthMode _authMode = AuthMode.Login;
   Map<String, String> _authData = {
+    'userName': '',
     'email': '',
     'password': '',
   };
 
   final _passwordController = TextEditingController();
   bool _isLoading = false;
+  void _submit(BuildContext context, String type) async {
+    if (!_formKey.currentState.validate()) {
+      return;
+    }
+    FocusScope.of(context).unfocus();
+    _formKey.currentState.save();
+    setState(() {});
+    UserCredential userCredential;
+    try {
+      setState(() {
+        _isLoading = true;
+      });
+      if (_authMode == AuthMode.Login) {
+        userCredential = await _auth.signInWithEmailAndPassword(
+            email: _authData['email'].trim(),
+            password: _authData['password'].trim());
+        if (type == 'tenet') {
+          Navigator.of(context).pushReplacementNamed(TenetHome.id);
+        } else if (type == 'owner') {
+          Navigator.of(context)
+              .pushReplacementNamed(BuildingsOverviewScreen.id);
+        }
+      } else {
+        setState(() {
+          _isLoading = false;
+        });
+        userCredential = await _auth.createUserWithEmailAndPassword(
+            email: _authData['email'].trim(),
+            password: _authData['password'].trim());
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(userCredential.user.uid)
+            .set({
+          'username': _authData['username'],
+          'email': _authData['email'],
+          'userType': type,
+        });
+      }
+    } catch (error) {
+      setState(() {
+        _isLoading = false;
+      });
+      print(error);
+      // var errorMessage = 'Couldn\'t authenticate ';
+      // if (error.toString().contains('EMAIL_EXISTS')) {
+      //   errorMessage = 'email is already in use';
+      // } else if (error.toString().contains('INVALID_EMAIL')) {
+      //   errorMessage = 'INVALID_EMAIL ';
+      // } else if (error.toString().contains('WEAK_PASSWORD')) {
+      //   errorMessage = 'WEAK_PASSWORD';
+      // } else if (error.toString().contains('EMAIL_NOT_FOUND')) {
+      //   errorMessage = 'EMAIL_NOT_FOUND';
+      // } else if (error.toString().contains('INVALID_PASSWORD')) {
+      //   errorMessage = 'INVALID_PASSWORD';
+      // }
+      // _showErrorDialog(errorMessage);
+    }
+  }
 
   Widget _submitButton(String type) {
     return InkWell(
@@ -28,6 +90,7 @@ class _LoginPageState extends State<LoginPage> {
       onTap: () {
         setState(() {
           _isLoading = true;
+          _submit(context, type);
         });
         if (type == 'tenet') {
           Navigator.of(context).pushNamed(TenetHome.id);
@@ -162,16 +225,19 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                     duration: Duration(milliseconds: 300),
                     curve: Curves.easeIn,
-                    child: _authMode == AuthMode.Signup?TextFormField(
-                      decoration:
-                          InputDecoration(labelText: 'Full Name'),
-                    ):Container(),
+                    child: _authMode == AuthMode.Signup
+                        ? TextFormField(
+                            decoration: InputDecoration(labelText: 'Full Name'),
+                          )
+                        : Container(),
                   ),
-                  _authMode == AuthMode.Signup? TextFormField(
-                    decoration: InputDecoration(labelText: 'UserName'),
-                    keyboardType: TextInputType.name,
-                    onSaved: (value) {},
-                  ):Container(),
+                  _authMode == AuthMode.Signup
+                      ? TextFormField(
+                          decoration: InputDecoration(labelText: 'UserName'),
+                          keyboardType: TextInputType.name,
+                          onSaved: (value) {},
+                        )
+                      : Container(),
                   TextFormField(
                     decoration: InputDecoration(labelText: 'E-Mail'),
                     keyboardType: TextInputType.emailAddress,

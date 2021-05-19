@@ -11,6 +11,7 @@ import 'package:HomER_flutter/tenant_Screens/presentHome.dart';
 import 'package:HomER_flutter/tenant_Screens/searchHome.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 import './owner_Screens/houses_overview_screen.dart';
 import './models/building.dart';
@@ -23,7 +24,11 @@ import './tenant_Screens/payment_history.dart';
 import './tenant_Screens/profile.dart';
 import './owner_Screens/edit_house_screen.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  Firebase.initializeApp();
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
@@ -60,8 +65,8 @@ class MyApp extends StatelessWidget {
           HouseDetails.id: (_) => HouseDetails(),
           SearchHousePage.id: (_) => SearchHousePage(),
           FilePickerPage.id: (_) => FilePickerPage(),
-          ImagePreview.id:(_) =>ImagePreview(),
-          ManageTenet.id:(_) =>ManageTenet()
+          ImagePreview.id: (_) => ImagePreview(),
+          ManageTenet.id: (_) => ManageTenet()
         },
       ),
     );

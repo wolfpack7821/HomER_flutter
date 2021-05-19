@@ -185,8 +185,6 @@ class _AddingBuildingState extends State<AddingBuilding> {
                         ),
                         onPressed: () {
                           _submit();
-                          // print(
-                          //     'Added-${_addBuild.buildAddress},${_addBuild.buildId},${_addBuild.buildName},${_addBuild.maintenence},${_addBuild.isHome}');
                         },
                       )
                     ],
