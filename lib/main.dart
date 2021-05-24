@@ -1,18 +1,19 @@
-import 'package:HomER_flutter/models/house.dart';
-import 'package:HomER_flutter/owner_Screens/adding_building.dart';
-import 'package:HomER_flutter/owner_Screens/houseDetails.dart';
-import 'package:HomER_flutter/owner_Screens/image_preview.dart';
-import 'package:HomER_flutter/owner_Screens/manageTenet.dart';
-import 'package:HomER_flutter/owner_Screens/owner_chat.dart';
-import 'package:HomER_flutter/owner_Screens/payment_historyowner.dart';
-import 'package:HomER_flutter/owner_Screens/uploadFiles.dart';
-import 'package:HomER_flutter/tenant_Screens/complaintPage.dart';
-import 'package:HomER_flutter/tenant_Screens/presentHome.dart';
-import 'package:HomER_flutter/tenant_Screens/searchHome.dart';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
 
+import './models/house.dart';
+import './owner_Screens/adding_building.dart';
+import './owner_Screens/houseDetails.dart';
+import './owner_Screens/image_preview.dart';
+import './owner_Screens/manageTenet.dart';
+import './owner_Screens/owner_chat.dart';
+import './owner_Screens/payment_historyowner.dart';
+import './owner_Screens/uploadFiles.dart';
+import './tenant_Screens/complaintPage.dart';
+import './tenant_Screens/presentHome.dart';
+import './tenant_Screens/searchHome.dart';
 import './owner_Screens/houses_overview_screen.dart';
 import './models/building.dart';
 import './login/loginscreen.dart';
@@ -48,6 +49,8 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.orange,
         ),
         home: WelcomePage(),
+        // WelcomePage(),
+
         routes: {
           LoginPage.id: (context) => LoginPage(),
           TenetHome.id: (context) => TenetHome(),

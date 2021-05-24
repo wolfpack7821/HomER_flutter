@@ -15,15 +15,25 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final _auth = FirebaseAuth.instance;
+    final _fullnameFocusNode = FocusNode();
+  final _usernameFocusNode = FocusNode();
+  final _emailFocusNode = FocusNode();
+  final _passwordFocusNode = FocusNode();
+  // final _form = GlobalKey<FormState>();
   final GlobalKey<FormState> _formKey = GlobalKey();
   AuthMode _authMode = AuthMode.Login;
   Map<String, String> _authData = {
-    'userName': '',
+    'username': '',
+    'fullname': '',
     'email': '',
     'password': '',
   };
 
   final _passwordController = TextEditingController();
+  final _emailController = TextEditingController();
+  final _fullnameController = TextEditingController();
+  final _usernameController = TextEditingController();
+
   bool _isLoading = false;
   void _submit(BuildContext context, String type) async {
     if (!_formKey.currentState.validate()) {
@@ -41,11 +51,27 @@ class _LoginPageState extends State<LoginPage> {
         userCredential = await _auth.signInWithEmailAndPassword(
             email: _authData['email'].trim(),
             password: _authData['password'].trim());
-        if (type == 'tenet') {
+        final userr = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(userCredential.user.uid)
+            .get();
+        print(userr['userType']);
+        if (userr['userType'] == 'tenet'&& type =='tenet') {
           Navigator.of(context).pushReplacementNamed(TenetHome.id);
-        } else if (type == 'owner') {
+        } else if (userr['userType'] == 'owner'&& type =='owner') {
           Navigator.of(context)
               .pushReplacementNamed(BuildingsOverviewScreen.id);
+        }
+        else{
+          FirebaseAuth.instance.signOut();
+          _emailController.clear();
+          _fullnameController.clear();
+          _usernameController.clear();
+          _passwordController.clear();
+          setState(() {
+            _isLoading=false;
+          });
+
         }
       } else {
         setState(() {
@@ -54,33 +80,32 @@ class _LoginPageState extends State<LoginPage> {
         userCredential = await _auth.createUserWithEmailAndPassword(
             email: _authData['email'].trim(),
             password: _authData['password'].trim());
-        await FirebaseFirestore.instance
+       await FirebaseFirestore.instance
             .collection('users')
             .doc(userCredential.user.uid)
             .set({
           'username': _authData['username'],
+          'fullname':_authData['fullname'],
           'email': _authData['email'],
           'userType': type,
         });
+        final userr = await FirebaseFirestore.instance
+            .collection('users')
+            .doc(userCredential.user.uid)
+            .get();
+        print(userr['userType']);
+        if (userr['userType'] == 'tenet') {
+          Navigator.of(context).pushReplacementNamed(TenetHome.id);
+        } else if (userr['userType'] == 'owner') {
+          Navigator.of(context)
+              .pushReplacementNamed(BuildingsOverviewScreen.id);
+        }
       }
     } catch (error) {
       setState(() {
         _isLoading = false;
       });
       print(error);
-      // var errorMessage = 'Couldn\'t authenticate ';
-      // if (error.toString().contains('EMAIL_EXISTS')) {
-      //   errorMessage = 'email is already in use';
-      // } else if (error.toString().contains('INVALID_EMAIL')) {
-      //   errorMessage = 'INVALID_EMAIL ';
-      // } else if (error.toString().contains('WEAK_PASSWORD')) {
-      //   errorMessage = 'WEAK_PASSWORD';
-      // } else if (error.toString().contains('EMAIL_NOT_FOUND')) {
-      //   errorMessage = 'EMAIL_NOT_FOUND';
-      // } else if (error.toString().contains('INVALID_PASSWORD')) {
-      //   errorMessage = 'INVALID_PASSWORD';
-      // }
-      // _showErrorDialog(errorMessage);
     }
   }
 
@@ -92,11 +117,6 @@ class _LoginPageState extends State<LoginPage> {
           _isLoading = true;
           _submit(context, type);
         });
-        if (type == 'tenet') {
-          Navigator.of(context).pushNamed(TenetHome.id);
-        } else {
-          Navigator.of(context).pushNamed(BuildingsOverviewScreen.id);
-        }
       },
       child: _isLoading
           ? CircularProgressIndicator()
@@ -227,18 +247,29 @@ class _LoginPageState extends State<LoginPage> {
                     curve: Curves.easeIn,
                     child: _authMode == AuthMode.Signup
                         ? TextFormField(
+                          focusNode: _fullnameFocusNode,
+                          controller: _fullnameController,
                             decoration: InputDecoration(labelText: 'Full Name'),
+                            onSaved: (value) {
+                              _authData['fullname'] = value;
+                            },
                           )
                         : Container(),
                   ),
                   _authMode == AuthMode.Signup
                       ? TextFormField(
+                        focusNode: _usernameFocusNode,
+                        controller: _usernameController,
                           decoration: InputDecoration(labelText: 'UserName'),
                           keyboardType: TextInputType.name,
-                          onSaved: (value) {},
+                          onSaved: (value) {
+                            _authData['username'] = value;
+                          },
                         )
                       : Container(),
                   TextFormField(
+                    focusNode: _emailFocusNode,
+                    controller: _emailController,
                     decoration: InputDecoration(labelText: 'E-Mail'),
                     keyboardType: TextInputType.emailAddress,
                     validator: (value) {
@@ -254,6 +285,7 @@ class _LoginPageState extends State<LoginPage> {
                     },
                   ),
                   TextFormField(
+                    focusNode: _passwordFocusNode,
                     decoration: InputDecoration(labelText: 'Password'),
                     obscureText: true,
                     controller: _passwordController,

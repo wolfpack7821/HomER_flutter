@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
+
 
 class Building {
   final String buildId;
@@ -59,11 +62,25 @@ class Buildings with ChangeNotifier {
     return _items.firstWhere((building) => building.buildId == id);
   }
 
-  void addBuilding(Building value) {
+  void addBuilding(Building value) async{
+    final user = FirebaseAuth.instance.currentUser;
+    final userData = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(user.uid)
+        .get();
     print(value.houses);
     value.houses.remove('1');
     print(value.houses.length);
-    // value.houses.length=0;
+    FirebaseFirestore.instance.collection('building').add({
+        'buildName': value.buildName,
+        'buildAddress': value.buildAddress,
+        'maintenence': value.maintenence,
+        'houses': value.houses,
+        'isHome': value.isHome,
+    }).then((value) => print(value.id));
+    // final ref = await FirebaseFirestore.instance.collection('building');
+    
+
     _items.add(value);
     notifyListeners();
   }
