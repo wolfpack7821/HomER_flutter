@@ -187,9 +187,9 @@ class _MainDrawerState extends State<MainDrawer> {
                 textAlign: TextAlign.center,
               ),
               onTap: () {
+                FirebaseAuth.instance.signOut();
                 Navigator.of(context).pop();
                 Navigator.of(context).pushReplacementNamed('/');
-                FirebaseAuth.instance.signOut();
                 // Provider.of<Auth>(context, listen: false).logout();
               },
             ),

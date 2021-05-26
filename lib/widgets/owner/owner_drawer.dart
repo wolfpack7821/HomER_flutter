@@ -1,7 +1,8 @@
-import 'package:HomER_flutter/owner_Screens/buildings_overview_screen.dart';
-import 'package:HomER_flutter/owner_Screens/payment_historyowner.dart';
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
+import '../../owner_Screens/buildings_overview_screen.dart';
+import '../../owner_Screens/payment_historyowner.dart';
 class OwnerDrawer extends StatefulWidget {
   @override
   _OwnerDrawerState createState() => _OwnerDrawerState();
@@ -89,9 +90,9 @@ class _OwnerDrawerState extends State<OwnerDrawer> {
                 textAlign: TextAlign.center,
               ),
               onTap: () {
+                FirebaseAuth.instance.signOut();
                 Navigator.of(context).pop();
                 Navigator.of(context).pushReplacementNamed('/');
-                // Provider.of<Auth>(context, listen: false).logout();
               },
             ),
             SizedBox(

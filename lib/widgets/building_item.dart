@@ -2,6 +2,8 @@ import 'package:HomER_flutter/models/building.dart';
 import 'package:HomER_flutter/owner_Screens/buildings_overview_screen.dart';
 import 'package:HomER_flutter/owner_Screens/edit_house_screen.dart';
 import 'package:HomER_flutter/owner_Screens/houseDetails.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -11,19 +13,40 @@ class BuildingItem extends StatelessWidget {
   final String buildId;
   final String buildName;
   final bool isHome;
+  final String buildAddress;
+  final String maintenence;
+  // final List<String> houses;
 
   final color = Colors.deepPurple;
 
-  BuildingItem({this.buildId, this.buildName, this.isHome});
+  BuildingItem(
+      {@required this.buildId,
+      @required this.buildName,
+      @required this.isHome,
+      @required this.buildAddress,
+      // @required this.houses,
+      @required this.maintenence});
 
   @override
   Widget build(BuildContext context) {
-    final loadedBuilding = Provider.of<Buildings>(context).findById(buildId);
+    final user = FirebaseAuth.instance.currentUser;
+
+    final build =FirebaseFirestore.instance
+              .collection('building')
+              .doc(user.uid)
+              .collection('building${user.uid}').doc(buildId).get();
+    final loadedBuilding = Building(
+        buildId: buildId,
+        buildName: buildName,
+        buildAddress: buildAddress,
+        maintenence: maintenence,
+        isHome: isHome,
+        houses: []);
     return GestureDetector(
       onTap: () {
         if (isHome) {
           loadedBuilding.houses.isEmpty
-              ? Navigator.of(context).pushNamed(AddHouse.id,arguments: buildId)
+              ? Navigator.of(context).pushNamed(AddHouse.id, arguments: buildId)
               : Navigator.of(context).pushNamed(HouseDetails.id,
                   arguments: loadedBuilding.houses[0]);
         } else {
@@ -51,7 +74,9 @@ class BuildingItem extends StatelessWidget {
                   padding: const EdgeInsets.symmetric(
                       vertical: 6.0, horizontal: 0.0),
                   child: Text(
-                    buildName.length>25?'${buildName.substring(0,25)}...':buildName,
+                    buildName.length > 25
+                        ? '${buildName.substring(0, 25)}...'
+                        : buildName,
                     style: TextStyle(
                       fontSize: 20.0,
                       color: Colors.white,

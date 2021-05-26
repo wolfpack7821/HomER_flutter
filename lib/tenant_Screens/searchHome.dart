@@ -54,9 +54,16 @@ class _SearchHousePageState extends State<SearchHousePage> {
         ],
       ),
       drawer: MainDrawer(),
-      body: GridView.builder(
+      body:housesList.length ==0
+        ? Center(
+            child: Image.asset(
+              'assets/waiting.png',
+              height: MediaQuery.of(context).size.height*.7
+            )
+          )
+        :  GridView.builder(
         itemBuilder: (ctx, i) => ChangeNotifierProvider.value(
-          value: housesList[i],
+          value: housesList[i], 
           child: Padding(
             padding: const EdgeInsets.all(20.0),
             child: SearchHomeItem(),
