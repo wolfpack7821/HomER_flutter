@@ -1,35 +1,55 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
-import '../models/building.dart';
 import './building_item.dart';
 
 class BuildingsGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final buildingsData = Provider.of<Buildings>(context);
-    final loadedBuildings = buildingsData.items;
-    return loadedBuildings.length == 0
-        ? Center(
-            child: Image.asset(
-              'assets/waiting.png',
-              height: MediaQuery.of(context).size.height*.7
-            )
-          )
-        : GridView.builder(
-            padding: const EdgeInsets.all(10.0),
-            itemCount: loadedBuildings.length,
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 1,
-              childAspectRatio: 5 / 2,
-              crossAxisSpacing: 8,
-              mainAxisSpacing: 8,
-            ),
-            itemBuilder: (ctx, i) => BuildingItem(
-              buildId: loadedBuildings[i].buildId,
-              buildName: loadedBuildings[i].buildName,
-              isHome: loadedBuildings[i].isHome,
-            ),
-          );
+    final user = FirebaseAuth.instance.currentUser;
+    // final userData = FirebaseFirestore.instance
+    //     .collection('users')
+    //     .doc(user.uid)
+    //     .get();
+
+    return FutureBuilder(builder: (ctx, snapShots) {
+      if (snapShots.connectionState == ConnectionState.waiting) {
+        return Center(child: CircularProgressIndicator());
+      }
+      return StreamBuilder(
+          stream: FirebaseFirestore.instance
+              .collection('building')
+              .doc(user.uid)
+              .collection('building${user.uid}')
+              .snapshots(),
+          builder: (ctx, AsyncSnapshot<QuerySnapshot> snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            final buildDocs = snapshot.data.docs;
+
+            return GridView.builder(
+              padding: const EdgeInsets.all(10.0),
+              itemCount: buildDocs.length,
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: 1,
+                childAspectRatio: 5 / 2,
+                crossAxisSpacing: 8,
+                mainAxisSpacing: 8,
+              ),
+              itemBuilder: (ctx, i) => BuildingItem(
+                buildId: buildDocs[i].id,
+                buildAddress: buildDocs[i]['buildAddress'],
+                maintenence: buildDocs[i]['maintenence'],
+                // houses:,
+                buildName: buildDocs[i]['buildName'],
+                isHome: buildDocs[i]['isHome'],
+              ),
+            );
+          });
+    });
   }
 }

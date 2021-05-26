@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 
-
 class Building {
   final String buildId;
   final String buildName;
@@ -22,37 +21,7 @@ class Building {
 }
 
 class Buildings with ChangeNotifier {
-  List<Building> _items = [
-    Building(
-        buildId: "01",
-        buildName: "Building-1",
-        buildAddress: "Address of Building-1",
-        maintenence: 'bvdsj',
-        houses: ['101', '201', '301', '401'],
-        isHome: false),
-    Building(
-      buildId: "02",
-      buildName: "Building-2",
-      buildAddress: "Address of Building-2",
-      maintenence: 'bvdsj',
-      houses: ['101'],
-      isHome: true,
-    ),
-    Building(
-        buildId: "03",
-        buildName: "Building-3",
-        buildAddress: "Address of Building-3",
-        maintenence: 'bvdsj',
-        houses: ['103'],
-        isHome: false),
-    Building(
-        buildId: "04",
-        buildName: "Building-4",
-        buildAddress: "Address of Building-4",
-        maintenence: 'bvdsj',
-        houses: ['301'],
-        isHome: false),
-  ];
+  List<Building> _items = [];
 
   List<Building> get items {
     return [..._items];
@@ -62,26 +31,23 @@ class Buildings with ChangeNotifier {
     return _items.firstWhere((building) => building.buildId == id);
   }
 
-  void addBuilding(Building value) async{
+  void addBuilding(Building value) async {
     final user = FirebaseAuth.instance.currentUser;
-    final userData = await FirebaseFirestore.instance
-        .collection('users')
-        .doc(user.uid)
-        .get();
     print(value.houses);
     value.houses.remove('1');
     print(value.houses.length);
-    FirebaseFirestore.instance.collection('building').add({
-        'buildName': value.buildName,
-        'buildAddress': value.buildAddress,
-        'maintenence': value.maintenence,
-        'houses': value.houses,
-        'isHome': value.isHome,
+    FirebaseFirestore.instance
+        .collection('building')
+        .doc(user.uid)
+        .collection('building${user.uid}')
+        .add({
+      'buildName': value.buildName,
+      'buildAddress': value.buildAddress,
+      'maintenence': value.maintenence,
+      'houses': value.houses,
+      'isHome': value.isHome,
     }).then((value) => print(value.id));
-    // final ref = await FirebaseFirestore.instance.collection('building');
-    
 
-    _items.add(value);
     notifyListeners();
   }
 
