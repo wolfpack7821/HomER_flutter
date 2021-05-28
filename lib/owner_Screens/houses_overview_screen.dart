@@ -1,11 +1,9 @@
-import 'package:HomER_flutter/models/house.dart';
 import 'package:HomER_flutter/owner_Screens/edit_house_screen.dart';
 import 'package:HomER_flutter/owner_Screens/houseDetails.dart';
 import 'package:HomER_flutter/owner_Screens/owner_chat.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
 
 import '../models/building.dart';
 

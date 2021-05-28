@@ -1,7 +1,5 @@
-import 'package:HomER_flutter/models/building.dart';
 import 'package:HomER_flutter/models/house.dart';
 import 'package:HomER_flutter/owner_Screens/houses_overview_screen.dart';
-// import 'package:HomER_flutter/owner_Screens/houseDetails.dart';
 import 'package:HomER_flutter/owner_Screens/image_preview.dart';
 import 'package:HomER_flutter/owner_Screens/uploadFiles.dart';
 import 'package:flutter/material.dart';
