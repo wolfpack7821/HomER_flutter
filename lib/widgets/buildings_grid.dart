@@ -44,7 +44,7 @@ class BuildingsGrid extends StatelessWidget {
                 buildId: buildDocs[i].id,
                 buildAddress: buildDocs[i]['buildAddress'],
                 maintenence: buildDocs[i]['maintenence'],
-                // houses:,
+                houses: buildDocs[i]['houses'] as List,
                 buildName: buildDocs[i]['buildName'],
                 isHome: buildDocs[i]['isHome'],
               ),

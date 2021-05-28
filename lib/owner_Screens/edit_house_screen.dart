@@ -1,7 +1,5 @@
-import 'package:HomER_flutter/models/building.dart';
 import 'package:HomER_flutter/models/house.dart';
 import 'package:HomER_flutter/owner_Screens/houses_overview_screen.dart';
-// import 'package:HomER_flutter/owner_Screens/houseDetails.dart';
 import 'package:HomER_flutter/owner_Screens/image_preview.dart';
 import 'package:HomER_flutter/owner_Screens/uploadFiles.dart';
 import 'package:flutter/material.dart';
@@ -26,23 +24,24 @@ class _AddHouseState extends State<AddHouse> {
   final _contactFocusNode = FocusNode();
   final _form = GlobalKey<FormState>();
   File _image;
-  var _addHouse = House(
-      contactNO: 0,
-      buildId: '01',
-      houseId: DateTime.now().toString(),
-      houseName: '',
-      houseNumber: '',
-      houseImage:
-          'https://sumesshmenonassociates.com/wp-content/uploads/2020/10/emirate-hills-front-1.jpg',
-      tenantName: '',
-      tenantUname: '',
-      tenantIdProof: '',
-      houseAddress: '',
-      houseAgreement: '',
-      houseAdv: 0,
-      houseRent: 0,
-      houseMaintenance: 0,
-      isHouseWaterFixed: false);
+  var _addHouse; 
+  // House(
+  //     contactNO: 0,
+  //     buildId: '01',
+  //     houseId: DateTime.now().toString(),
+  //     houseName: '',
+  //     houseNumber: '',
+  //     houseImage:
+  //         'https://sumesshmenonassociates.com/wp-content/uploads/2020/10/emirate-hills-front-1.jpg',
+  //     tenantName: '',
+  //     tenantUname: '',
+  //     tenantIdProof: '',
+  //     houseAddress: '',
+  //     houseFiles: '',
+  //     houseAdv: 0,
+  //     houseRent: 0,
+  //     houseMaintenance: 0,
+  //     isHouseWaterFixed: false);
 
   Future<void> _submit(String id) async {
     final isValid = _form.currentState.validate();
@@ -50,8 +49,6 @@ class _AddHouseState extends State<AddHouse> {
       return;
     }
     Provider.of<Houses>(context, listen: false).addHouse(_addHouse);
-    Provider.of<Buildings>(context, listen: false)
-        .addHouse(_addHouse.buildId, _addHouse.houseId);
     Navigator.of(context)
         .pushReplacementNamed(HousesOverviewScreen.id, arguments: id);
   }
@@ -84,7 +81,7 @@ class _AddHouseState extends State<AddHouse> {
         tenantUname: '',
         tenantIdProof: '',
         houseAddress: '',
-        houseAgreement: '',
+        houseFiles: '',
         houseAdv: 0,
         houseRent: 0,
         houseMaintenance: 0,
@@ -166,7 +163,7 @@ class _AddHouseState extends State<AddHouse> {
                         tenantUname: _addHouse.tenantUname,
                         tenantIdProof: _addHouse.tenantIdProof,
                         houseAddress: _addHouse.houseAddress,
-                        houseAgreement: _addHouse.houseAgreement,
+                        houseFiles: _addHouse.houseFiles,
                         houseAdv: _addHouse.houseAdv,
                         houseRent: _addHouse.houseRent,
                         houseMaintenance: _addHouse.houseMaintenance,
@@ -199,7 +196,7 @@ class _AddHouseState extends State<AddHouse> {
                         tenantUname: _addHouse.tenantUname,
                         tenantIdProof: _addHouse.tenantIdProof,
                         houseAddress: _addHouse.houseAddress,
-                        houseAgreement: _addHouse.houseAgreement,
+                        houseFiles: _addHouse.houseFiles,
                         houseAdv: _addHouse.houseAdv,
                         houseRent: _addHouse.houseRent,
                         houseMaintenance: _addHouse.houseMaintenance,
@@ -233,7 +230,7 @@ class _AddHouseState extends State<AddHouse> {
                         tenantUname: _addHouse.tenantUname,
                         tenantIdProof: _addHouse.tenantIdProof,
                         houseAddress: _addHouse.houseAddress,
-                        houseAgreement: _addHouse.houseAgreement,
+                        houseFiles: _addHouse.houseFiles,
                         houseAdv: _addHouse.houseAdv,
                         houseRent: _addHouse.houseRent,
                         houseMaintenance: _addHouse.houseMaintenance,
@@ -267,7 +264,7 @@ class _AddHouseState extends State<AddHouse> {
                         tenantUname: _addHouse.tenantUname,
                         tenantIdProof: _addHouse.tenantIdProof,
                         houseAddress: _addHouse.houseAddress,
-                        houseAgreement: _addHouse.houseAgreement,
+                        houseFiles: _addHouse.houseFiles,
                         houseAdv: _addHouse.houseAdv,
                         houseRent: double.parse(value),
                         houseMaintenance: _addHouse.houseMaintenance,
@@ -301,7 +298,7 @@ class _AddHouseState extends State<AddHouse> {
                         tenantUname: _addHouse.tenantUname,
                         tenantIdProof: _addHouse.tenantIdProof,
                         houseAddress: _addHouse.houseAddress,
-                        houseAgreement: _addHouse.houseAgreement,
+                        houseFiles: _addHouse.houseFiles,
                         houseAdv: double.parse(value),
                         houseRent: _addHouse.houseRent,
                         houseMaintenance: _addHouse.houseMaintenance,
@@ -334,7 +331,7 @@ class _AddHouseState extends State<AddHouse> {
                         tenantUname: _addHouse.tenantUname,
                         tenantIdProof: _addHouse.tenantIdProof,
                         houseAddress: value,
-                        houseAgreement: _addHouse.houseAgreement,
+                        houseFiles: _addHouse.houseFiles,
                         houseAdv: _addHouse.houseAdv,
                         houseRent: _addHouse.houseRent,
                         houseMaintenance: _addHouse.houseMaintenance,
@@ -373,7 +370,7 @@ class _AddHouseState extends State<AddHouse> {
                         tenantUname: _addHouse.tenantUname,
                         tenantIdProof: _addHouse.tenantIdProof,
                         houseAddress: _addHouse.houseAddress,
-                        houseAgreement: _addHouse.houseAgreement,
+                        houseFiles: _addHouse.houseFiles,
                         houseAdv: _addHouse.houseAdv,
                         houseRent: _addHouse.houseRent,
                         houseMaintenance: double.parse(value),
