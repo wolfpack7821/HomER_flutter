@@ -1,14 +1,17 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 
-class House with ChangeNotifier{
+class House with ChangeNotifier {
   final String buildId;
   final String houseId;
+  final String ownerId;
   final String houseName;
   final String houseNumber;
   final String tenantName;
   final String tenantUname;
   final String tenantIdProof;
-  final String houseAgreement;
+  final String houseFiles;
   final double houseAdv;
   final double contactNO;
   final double houseRent;
@@ -31,12 +34,13 @@ class House with ChangeNotifier{
     @required this.tenantUname,
     @required this.tenantIdProof,
     @required this.houseAddress,
-    @required this.houseAgreement,
+    @required this.houseFiles,
     @required this.contactNO,
     @required this.houseAdv,
     @required this.houseRent,
     @required this.houseMaintenance,
     @required this.isHouseWaterFixed,
+    this.ownerId,
     this.houseWater,
     this.rating,
     this.review,
@@ -44,82 +48,62 @@ class House with ChangeNotifier{
   });
 }
 
+class Houses with ChangeNotifier {
+  List<House> _houses = [];
 
-class Houses with ChangeNotifier{
-List<House> _houses=[
-      //   House(
-      //   buildId: "01",
-      //   houseId: "101",
-      //   houseName: 'house2',
-      //   houseImage: 'https://sumesshmenonassociates.com/wp-content/uploads/2020/10/emirate-hills-front-1.jpg',
-      //   houseAddress: 'this is a address of the house',
-      //   houseNumber: "G01",
-      //   contactNO: 9707027277,
-      //   tenantName: "Goutham K",
-      //   tenantUname: "k_gout",
-      //   tenantIdProof: "kgoutIdProof",
-      //   houseAgreement: "G01Agree",
-      //   houseAdv: 50000.00,
-      //   houseRent: 10000.00,
-      //   review: 'average',
-      //   houseMaintenance: 500.00,
-      //   isHouseWaterFixed: false,
-      //   isVacant: false
-      // ),
-      // House(
-      //   buildId: "02",
-      //   houseId: "101",
-      //   houseName: 'House1',
-      //   houseNumber: "101",
-      //    houseImage: 'https://sumesshmenonassociates.com/wp-content/uploads/2020/10/emirate-hills-front-1.jpg',
-      //   houseAddress: 'this is a address of the house',
-      //   tenantName: "Bala ",
-      //   tenantUname: "bala_dbs",
-      //   contactNO: 9707027277,
-      //   tenantIdProof: "balaIdProof",
-      //   houseAgreement: "G01Agree",
-      //   houseAdv: 52000.00,
-      //   houseRent: 11000.00,
-      //   houseMaintenance: 400.00,
-      //   review: 'Good',
-      //   isHouseWaterFixed: false,
-      //   isVacant: false
-      // ),
-      //  House(
-      //   buildId: "03",
-      //   houseId: "103",
-      //   houseName: 'house3',
-      //   houseNumber: "103",
-      //   contactNO: 9707027277,
-      //    houseImage: 'https://sumesshmenonassociates.com/wp-content/uploads/2020/10/emirate-hills-front-1.jpg',
-      //   houseAddress: 'this is a address of the house',
-      //   tenantName: "",
-      //   tenantUname: "",
-      //   tenantIdProof: "",
-      //   houseAgreement: "G01Agree",
-      //   houseAdv: 52000.00,
-      //   houseRent: 11000.00,
-      //   houseMaintenance: 400.00,
-      //   review: 'bad',
-      //   isHouseWaterFixed: false,
-      //   isVacant: true
-      // ),
-];
-
- List<House> get houses {
+  List<House> get houses {
     return [..._houses];
   }
 
   House findById(String id) {
     return _houses.firstWhere((houses) => houses.houseId == id);
   }
-  void addHouse( House house){
+
+  void addHouse(House house) async {
+    final user = FirebaseAuth.instance.currentUser;
+    FirebaseFirestore.instance.collection('houses').add({
+      'buildId': house.buildId,
+      'ownerId': user.uid,
+      'houseName': house.houseName,
+      'houseNumber': house.houseNumber,
+      'tenantName': house.tenantName,
+      'tenantUname': house.tenantUname,
+      'tenantIdProof': house.tenantIdProof,
+      'houseFiles': house.houseFiles,
+      'houseAdv': house.houseAdv,
+      'contactNO': house.contactNO,
+      'houseRent': house.houseRent,
+      'houseAddress': house.houseAddress,
+      'houseImage': house.houseImage,
+      'houseMaintenance': house.houseMaintenance,
+      'isHouseWaterFixed': house.isHouseWaterFixed,
+      'houseWater': house.houseWater,
+      'rating': house.rating,
+      'review': house.review,
+      'isVacant': house.isVacant
+    }).then((value) async {
+      final build = await FirebaseFirestore.instance
+          .collection('building')
+          .doc(user.uid)
+          .collection('building${user.uid}')
+          .doc(house.buildId)
+          .get();
+      List h = build['houses'];
+      h.add(value.id);
+      FirebaseFirestore.instance
+          .collection('building')
+          .doc(user.uid)
+          .collection('building${user.uid}')
+          .doc(house.buildId)
+          .set({'houses': h});
+      print(value.id);
+    });
     _houses.add(house);
     notifyListeners();
   }
-  void deleteHouse(String id){
+
+  void deleteHouse(String id) {
     _houses.remove(_houses.firstWhere((element) => element.houseId == id));
     notifyListeners();
   }
-
 }

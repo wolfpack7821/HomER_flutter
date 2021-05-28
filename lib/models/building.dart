@@ -6,7 +6,7 @@ class Building {
   final String buildId;
   final String buildName;
   final String buildAddress;
-  List<String> houses;
+  List houses;
   final String maintenence;
   bool isHome;
 
@@ -27,9 +27,6 @@ class Buildings with ChangeNotifier {
     return [..._items];
   }
 
-  Building findById(String id) {
-    return _items.firstWhere((building) => building.buildId == id);
-  }
 
   void addBuilding(Building value) async {
     final user = FirebaseAuth.instance.currentUser;
@@ -48,11 +45,6 @@ class Buildings with ChangeNotifier {
       'isHome': value.isHome,
     }).then((value) => print(value.id));
 
-    notifyListeners();
-  }
-
-  void addHouse(String bId, String hId) {
-    _items.firstWhere((element) => element.buildId == bId).houses.add(hId);
     notifyListeners();
   }
 
