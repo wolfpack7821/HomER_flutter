@@ -2,7 +2,7 @@ import 'package:HomER_flutter/owner_Screens/adding_building.dart';
 import 'package:HomER_flutter/widgets/owner/owner_drawer.dart';
 import 'package:flutter/material.dart';
 
-import '../widgets/buildings_grid.dart';
+import '../widgets/owner/buildings_grid.dart';
 
 class BuildingsOverviewScreen extends StatefulWidget {
   static const id = 'buildingoverviewScreen';

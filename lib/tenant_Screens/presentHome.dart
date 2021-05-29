@@ -19,7 +19,30 @@ class _PresentHomeState extends State<PresentHome> {
       size: 15,
     );
   }
-
+ Widget fields(String field, value) {
+    return Row(
+      children: [
+        Padding(
+          padding: const EdgeInsets.fromLTRB(8.0, 5, 8, 5),
+          child: Text(
+            '$field:',
+            style: TextStyle(
+                color: Colors.black, fontSize: 19, fontWeight: FontWeight.bold),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(8.0, 5, 8, 5),
+          child: Text(
+            '$value',
+            style: TextStyle(
+              color: Colors.black,
+              fontSize: 21,
+            ),
+          ),
+        ),
+      ],
+    );
+  }
   Widget filledBar(Color color, int flex1, var width) {
     return Container(
       width: width * 0.27,
@@ -221,249 +244,203 @@ class _PresentHomeState extends State<PresentHome> {
       listen: false,
     ).findById(houseId);
     return Scaffold(
-      key: _scaffoldKey,
-      drawer: MainDrawer(),
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(
-            Icons.menu_open,
-            color: Colors.purple,
-            size: 32,
+        key: _scaffoldKey,
+        drawer: MainDrawer(),
+        appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(
+              Icons.menu_open,
+              color: Colors.purple,
+              size: 32,
+            ),
+            onPressed: () {
+              _scaffoldKey.currentState.openDrawer();
+            },
           ),
-          onPressed: () {
-            _scaffoldKey.currentState.openDrawer();
-          },
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          title: Text(
+            'House Details',
+            style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
+          ),
         ),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        title: Text(
-          'House Details',
-          style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
-        ),
-      ),
-      body: Padding(
-        padding: const EdgeInsets.fromLTRB(12, 1, 12, 1),
-        child: ListView(
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Card(
-                child: Container(
-                  height: 300,
-                  child: ListView(
-                    scrollDirection: Axis.horizontal,
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
+        body: FutureBuilder(
+            future: loadedHouse,
+            builder: (ctx, snapshot) {
+              if (!snapshot.hasData) {
+                return Center(
+                  child: CircularProgressIndicator(),
+                );
+              }
+              return Padding(
+                padding: const EdgeInsets.fromLTRB(12, 1, 12, 1),
+                child: ListView(
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Card(
                         child: Container(
-                          child: Image.network(
-                              'https://sumesshmenonassociates.com/wp-content/uploads/2020/10/emirate-hills-front-1.jpg'),
+                          height: 300,
+                          child: ListView(
+                            scrollDirection: Axis.horizontal,
+                            children: <Widget>[
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(
+                                  child: Image.network(
+                                      snapshot.data.houseImage),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(
+                                  child: Image.network(
+                                      snapshot.data.houseImage),
+                                ),
+                              ),
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Container(
+                                  child: Image.network(
+                                      snapshot.data.houseImage),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          child: Image.network(
-                              'https://sumesshmenonassociates.com/wp-content/uploads/2020/10/emirate-hills-front-1.jpg'),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        snapshot.data.houseId == ''
+                            ? 'Lotas Apparments Banglore /403'
+                            : snapshot.data.houseName,
+                        softWrap: true,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 30,
                         ),
                       ),
-                      Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Container(
-                          child: Image.network(
-                              'https://sumesshmenonassociates.com/wp-content/uploads/2020/10/emirate-hills-front-1.jpg'),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(40.0, 5, 0, 5),
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        children: [
+                          Container(
+                            width: 50,
+                            height: 20,
+                            decoration: BoxDecoration(
+                                color: Colors.green,
+                                shape: BoxShape.rectangle,
+                                borderRadius:
+                                    BorderRadius.all(Radius.circular(15))),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  '4',
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                                Icon(
+                                  Icons.star,
+                                  size: 16,
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Text(
+                        snapshot.data.houseAddress,
+                        style: TextStyle(color: Colors.grey, fontSize: 20),
+                      ),
+                    ),
+                    fields('Rent', '₹${snapshot.data.houseRent}'),
+                  fields('Advance', '₹${snapshot.data.houseAdv}'),
+                  fields('Owner', '${snapshot.data.ownerId}'),
+                  fields('Owner ContactNo', '${snapshot.data.contactNO}'),
+                  fields('Menitenance Details',
+                      '₹${snapshot.data.houseMaintenance}'),
+                  fields('TenetName', '${snapshot.data.tenantName}'),
+                  fields('No Of Members', '4'),
+                    SizedBox(height: MediaQuery.of(context).size.height * .05),
+                    Container(
+                      height: 30,
+                      width: MediaQuery.of(context).size.width -
+                          40, //size.width - 40,
+                      color: Colors.grey[350],
+                      padding: EdgeInsets.only(left: 20, top: 5, bottom: 5),
+                      margin: EdgeInsets.only(left: 20, right: 20),
+                      child: Text(
+                        'Reviews and Ratings',
+                        style: TextStyle(
+                          color: Colors.black,
                         ),
                       ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                loadedHouse.houseId == ''
-                    ? 'Lotas Apparments Banglore /403'
-                    : loadedHouse.houseName,
-                softWrap: true,
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 30,
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(40.0, 5, 0, 5),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  Container(
-                    width: 50,
-                    height: 20,
-                    decoration: BoxDecoration(
-                        color: Colors.green,
-                        shape: BoxShape.rectangle,
-                        borderRadius: BorderRadius.all(Radius.circular(15))),
-                    child: Row(
+                    ),
+                    Container(
+                      height: 130,
+                      child: Row(
+                        children: <Widget>[
+                          Expanded(
+                            child: ratingReviewleft(
+                                '4',
+                                '567',
+                                '4,567',
+                                MediaQuery.of(context).size.width * 0.5,
+                                MediaQuery.of(context).size.width * 0.12,
+                                MediaQuery.of(context).size.width * 0.12),
+                          ),
+                          Expanded(
+                            child: Padding(
+                              padding: const EdgeInsets.only(right: 15),
+                              child: ratingReviewRight(
+                                  MediaQuery.of(context).size.width),
+                            ),
+                          )
+                        ],
+                      ),
+                    ),
+                    Row(
+                      mainAxisSize: MainAxisSize.min,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
-                          '4',
-                          style: TextStyle(fontSize: 16),
-                        ),
-                        Icon(
-                          Icons.star,
-                          size: 16,
+                        Container(
+                          width: MediaQuery.of(context).size.width * .9,
+                          decoration: BoxDecoration(
+                            color: Colors.grey[200],
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          child: TextFormField(
+                            cursorColor: Colors.black,
+                            keyboardType: TextInputType.text,
+                            decoration: new InputDecoration(
+                                border: InputBorder.none,
+                                focusedBorder: InputBorder.none,
+                                enabledBorder: InputBorder.none,
+                                errorBorder: InputBorder.none,
+                                disabledBorder: InputBorder.none,
+                                contentPadding: EdgeInsets.only(
+                                    left: 15, bottom: 11, top: 11, right: 15),
+                                hintText: "Write a review..."),
+                          ),
                         ),
                       ],
                     ),
-                  ),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                'This is the address of the present home',
-                style: TextStyle(color: Colors.grey, fontSize: 20),
-              ),
-            ),
-            Row(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    'Rent: ₹1000',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 18,
+                    SizedBox(
+                      height: 20,
                     ),
-                  ),
+                    reviewText(4, 'good', 'reviewText', 'author', 'reviewDate'),
+                    reviewText(4, 'good', 'reviewText', 'author', 'reviewDate')
+                  ],
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    'Advance: ₹1000',
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 18,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                'Owner: XYZ',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 18,
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                'Owner contact: 9809303909',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 18,
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                'Maintenance no: 789487395',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 18,
-                ),
-              ),
-            ),
-             Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                'Is Vacant: ${loadedHouse.isVacant}',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontSize: 18,
-                ),
-              ),
-            ),
-            SizedBox(height: MediaQuery.of(context).size.height * .05),
-            Container(
-              height: 30,
-              width: MediaQuery.of(context).size.width - 40, //size.width - 40,
-              color: Colors.grey[350],
-              padding: EdgeInsets.only(left: 20, top: 5, bottom: 5),
-              margin: EdgeInsets.only(left: 20, right: 20),
-              child: Text(
-                'Reviews and Ratings',
-                style: TextStyle(
-                  color: Colors.black,
-                ),
-              ),
-            ),
-            Container(
-              height: 130,
-              child: Row(
-                children: <Widget>[
-                  Expanded(
-                    child: ratingReviewleft(
-                        '4',
-                        '567',
-                        '4,567',
-                        MediaQuery.of(context).size.width * 0.5,
-                        MediaQuery.of(context).size.width * 0.12,
-                        MediaQuery.of(context).size.width * 0.12),
-                  ),
-                  Expanded(
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 15),
-                      child:
-                          ratingReviewRight(MediaQuery.of(context).size.width),
-                    ),
-                  )
-                ],
-              ),
-            ),
-            Row(
-              mainAxisSize: MainAxisSize.min,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  width: MediaQuery.of(context).size.width * .9,
-                  decoration: BoxDecoration(
-                    color: Colors.grey[200],
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                  child: TextFormField(
-                    cursorColor: Colors.black,
-                    keyboardType: TextInputType.text,
-                    decoration: new InputDecoration(
-                        border: InputBorder.none,
-                        focusedBorder: InputBorder.none,
-                        enabledBorder: InputBorder.none,
-                        errorBorder: InputBorder.none,
-                        disabledBorder: InputBorder.none,
-                        contentPadding: EdgeInsets.only(
-                            left: 15, bottom: 11, top: 11, right: 15),
-                        hintText: "Write a review..."),
-                  ),
-                ),
-              ],
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            reviewText(4, 'good', 'reviewText', 'author', 'reviewDate'),
-            reviewText(4, 'good', 'reviewText', 'author', 'reviewDate')
-          ],
-        ),
-      ),
-    );
+              );
+            }));
   }
 }

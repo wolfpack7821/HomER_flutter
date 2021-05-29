@@ -2,16 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-import './building_item.dart';
+import 'building_item.dart';
 
 class BuildingsGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
-    // final userData = FirebaseFirestore.instance
-    //     .collection('users')
-    //     .doc(user.uid)
-    //     .get();
+
 
     return FutureBuilder(builder: (ctx, snapShots) {
       if (snapShots.connectionState == ConnectionState.waiting) {

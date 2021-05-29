@@ -55,8 +55,33 @@ class Houses with ChangeNotifier {
     return [..._houses];
   }
 
-  House findById(String id) {
-    return _houses.firstWhere((houses) => houses.houseId == id);
+  Future<House> findById(String id) async {
+    // final user = FirebaseAuth.instance.currentUser;
+    final houseData =
+        await FirebaseFirestore.instance.collection('houses').doc(id).get();
+    House house = House(
+        buildId: houseData['buildId'],
+        houseId: houseData.id,
+        ownerId: houseData['ownerId'],
+        houseName: houseData['houseName'],
+        houseNumber: houseData['houseNumber'],
+        houseImage: houseData['houseImage'],
+        tenantName: houseData['tenantName'],
+        tenantUname: houseData['tenantUname'],
+        tenantIdProof: houseData['tenantIdProof'],
+        houseAddress: houseData['houseAddress'],
+        houseFiles: houseData['houseFiles'],
+        contactNO: houseData['contactNO'],
+        houseAdv: houseData['houseAdv'],
+        houseRent: houseData['houseRent'],
+        houseMaintenance: houseData['houseMaintenance'],
+        isHouseWaterFixed: houseData['isHouseWaterFixed'],
+        isVacant: houseData['isVacant'],
+        rating: houseData['rating'],
+        review: houseData['review'],
+        houseWater: houseData['houseWater']
+        );
+    return house;
   }
 
   void addHouse(House house) async {
@@ -95,7 +120,13 @@ class Houses with ChangeNotifier {
           .doc(user.uid)
           .collection('building${user.uid}')
           .doc(house.buildId)
-          .set({'houses': h});
+          .set({
+        'buildName': build['buildName'],
+        'buildAddress': build['buildAddress'],
+        'maintenence': build['maintenence'],
+        'isHome': build['isHome'],
+        'houses': h
+      });
       print(value.id);
     });
     _houses.add(house);

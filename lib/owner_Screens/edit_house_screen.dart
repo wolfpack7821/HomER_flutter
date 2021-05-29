@@ -1,5 +1,5 @@
 import 'package:HomER_flutter/models/house.dart';
-import 'package:HomER_flutter/owner_Screens/houses_overview_screen.dart';
+import 'package:HomER_flutter/owner_Screens/buildings_overview_screen.dart';
 import 'package:HomER_flutter/owner_Screens/image_preview.dart';
 import 'package:HomER_flutter/owner_Screens/uploadFiles.dart';
 import 'package:flutter/material.dart';
@@ -49,8 +49,7 @@ class _AddHouseState extends State<AddHouse> {
       return;
     }
     Provider.of<Houses>(context, listen: false).addHouse(_addHouse);
-    Navigator.of(context)
-        .pushReplacementNamed(HousesOverviewScreen.id, arguments: id);
+    Navigator.of(context).pushReplacementNamed(BuildingsOverviewScreen.id);
   }
 
   final picker = ImagePicker();

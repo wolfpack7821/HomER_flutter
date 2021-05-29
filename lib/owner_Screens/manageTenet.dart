@@ -3,6 +3,11 @@ import './uploadFiles.dart';
 
 class ManageTenet extends StatelessWidget {
   static const id = '/manage Tenets';
+
+   final _tenetNameFocusNode = FocusNode();
+  final _noOTenetFocusNode = FocusNode();
+  final _contactFocusNode = FocusNode();
+  final _form = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -11,7 +16,7 @@ class ManageTenet extends StatelessWidget {
         actions: [
           FlatButton(
             onPressed: () {},
-            child: Text('save/remove',style: TextStyle(fontSize: 18),),
+            child: Text('save',style: TextStyle(fontSize: 18),),
           ),
         ],
         backgroundColor: Colors.transparent,
@@ -21,12 +26,13 @@ class ManageTenet extends StatelessWidget {
         padding: const EdgeInsets.all(15.0),
         child: SingleChildScrollView(
             child: Form(
+              key: _form,
           child: Column(
             children: [
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
-                  // focusNode: _houseNumberFocusNode,
+                  focusNode: _tenetNameFocusNode,
                   decoration: InputDecoration(labelText: 'Tenet Name'),
                   textInputAction: TextInputAction.next,
                   validator: (value) {
@@ -41,7 +47,7 @@ class ManageTenet extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
-                  // focusNode: _houseNumberFocusNode,
+                  focusNode: _contactFocusNode,
                   decoration: InputDecoration(labelText: 'Tenet Number'),
                   textInputAction: TextInputAction.next,
                   validator: (value) {
@@ -56,7 +62,7 @@ class ManageTenet extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: TextFormField(
-                  // focusNode: _houseNumberFocusNode,
+                  focusNode: _noOTenetFocusNode,
                   decoration: InputDecoration(labelText: 'Number of Tenets'),
                   textInputAction: TextInputAction.next,
                   validator: (value) {
