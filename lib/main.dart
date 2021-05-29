@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -25,13 +24,14 @@ import './tenant_Screens/payment_history.dart';
 import './tenant_Screens/profile.dart';
 import './owner_Screens/edit_house_screen.dart';
 
-void main() {
+void main() async{
   WidgetsFlutterBinding.ensureInitialized();
-  Firebase.initializeApp();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -48,9 +48,8 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.orange,
         ),
-        home: WelcomePage(),
-        // WelcomePage(),
-
+        home: 
+             WelcomePage(),
         routes: {
           LoginPage.id: (context) => LoginPage(),
           TenetHome.id: (context) => TenetHome(),
