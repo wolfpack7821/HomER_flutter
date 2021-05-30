@@ -87,6 +87,7 @@ class _LoginPageState extends State<LoginPage> {
           'username': _authData['username'],
           'fullname':_authData['fullname'],
           'email': _authData['email'],
+          'house':null,
           'userType': type,
         });
         final userr = await FirebaseFirestore.instance

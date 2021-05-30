@@ -1,1 +1,0 @@
-This ia the widgets dir where all the widgets styling are present

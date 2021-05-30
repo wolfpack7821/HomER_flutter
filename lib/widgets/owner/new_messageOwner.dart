@@ -1,6 +1,10 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class NewMessageOwner extends StatefulWidget {
+  final String hId;
+  NewMessageOwner(this.hId);
   @override
   _NewMessageOwnerState createState() => _NewMessageOwnerState();
 }
@@ -11,6 +15,17 @@ class _NewMessageOwnerState extends State<NewMessageOwner> {
 
   void _sendMessage() async {
     FocusScope.of(context).unfocus();
+    final user = FirebaseAuth.instance.currentUser;
+    final userData = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(user.uid)
+        .get();
+    FirebaseFirestore.instance.collection('chat${widget.hId}').add({
+      'Text': _message,
+      'createdAt': Timestamp.now(),
+      'userId': user.uid,
+      'username': userData['username'],
+    });
     _controller.clear();
     _message = '';
   }
@@ -46,22 +61,22 @@ class _NewMessageOwnerState extends State<NewMessageOwner> {
                       onPressed: () {
                         _billDialog(context);
                       }),
-                  _message.isEmpty
+                  _message.trim().isEmpty
                       ? FlatButton(
                           child: Text(
-                            'Send',
+                            'Intitae Pay',
                             style: TextStyle(color: Colors.grey),
                           ),
-                          onPressed:
-                              (_message.trim().isEmpty ? () {} : _sendMessage),
+                          onPressed: () {
+                            print('pay');
+                          },
                         )
                       : FlatButton(
                           child: Text(
                             'Send',
                             style: TextStyle(color: Colors.black),
                           ),
-                          onPressed:
-                              (_message.trim().isEmpty ? () {} : _sendMessage),
+                          onPressed: _sendMessage,
                         ),
                 ],
               ),

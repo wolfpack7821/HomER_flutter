@@ -1,6 +1,6 @@
 import 'package:HomER_flutter/tenant_Screens/home.dart';
 import 'package:HomER_flutter/tenant_Screens/payment_history.dart';
-import 'package:HomER_flutter/tenant_Screens/presentHome.dart';
+import '../../tenant_Screens/presentHome.dart';
 import 'package:HomER_flutter/tenant_Screens/profile.dart';
 import 'package:HomER_flutter/tenant_Screens/searchHome.dart';
 import 'package:flutter/material.dart';
@@ -124,7 +124,7 @@ class _MainDrawerState extends State<MainDrawer> {
                 textAlign: TextAlign.center,
               ),
               onTap: () {
-                Navigator.of(context).pushReplacementNamed(PresentHome.id,arguments: '103');
+                Navigator.of(context).pushReplacementNamed(PresentHome.id);
               },
             ),
             SizedBox(

@@ -1,5 +1,4 @@
 import 'package:HomER_flutter/models/house.dart';
-import 'package:HomER_flutter/owner_Screens/buildings_overview_screen.dart';
 import 'package:HomER_flutter/owner_Screens/image_preview.dart';
 import 'package:HomER_flutter/owner_Screens/uploadFiles.dart';
 import 'package:flutter/material.dart';
@@ -25,31 +24,14 @@ class _AddHouseState extends State<AddHouse> {
   final _form = GlobalKey<FormState>();
   File _image;
   var _addHouse; 
-  // House(
-  //     contactNO: 0,
-  //     buildId: '01',
-  //     houseId: DateTime.now().toString(),
-  //     houseName: '',
-  //     houseNumber: '',
-  //     houseImage:
-  //         'https://sumesshmenonassociates.com/wp-content/uploads/2020/10/emirate-hills-front-1.jpg',
-  //     tenantName: '',
-  //     tenantUname: '',
-  //     tenantIdProof: '',
-  //     houseAddress: '',
-  //     houseFiles: '',
-  //     houseAdv: 0,
-  //     houseRent: 0,
-  //     houseMaintenance: 0,
-  //     isHouseWaterFixed: false);
-
   Future<void> _submit(String id) async {
     final isValid = _form.currentState.validate();
     if (!isValid) {
       return;
     }
     Provider.of<Houses>(context, listen: false).addHouse(_addHouse);
-    Navigator.of(context).pushReplacementNamed(BuildingsOverviewScreen.id);
+    int count = 0;
+    Navigator.of(context).popUntil((_) => count++ >= 1);
   }
 
   final picker = ImagePicker();

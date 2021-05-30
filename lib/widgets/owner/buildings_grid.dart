@@ -9,7 +9,6 @@ class BuildingsGrid extends StatelessWidget {
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
 
-
     return FutureBuilder(builder: (ctx, snapShots) {
       if (snapShots.connectionState == ConnectionState.waiting) {
         return Center(child: CircularProgressIndicator());
@@ -28,24 +27,29 @@ class BuildingsGrid extends StatelessWidget {
             }
             final buildDocs = snapshot.data.docs;
 
-            return GridView.builder(
-              padding: const EdgeInsets.all(10.0),
-              itemCount: buildDocs.length,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 1,
-                childAspectRatio: 5 / 2,
-                crossAxisSpacing: 8,
-                mainAxisSpacing: 8,
-              ),
-              itemBuilder: (ctx, i) => BuildingItem(
-                buildId: buildDocs[i].id,
-                buildAddress: buildDocs[i]['buildAddress'],
-                maintenence: buildDocs[i]['maintenence'],
-                houses: buildDocs[i]['houses'] as List,
-                buildName: buildDocs[i]['buildName'],
-                isHome: buildDocs[i]['isHome'],
-              ),
-            );
+            return buildDocs.length == 0
+                ? Center(
+                    child: Image.asset('assets/waiting.png',
+                        height: MediaQuery.of(context).size.height * .7),
+                  )
+                : GridView.builder(
+                    padding: const EdgeInsets.all(10.0),
+                    itemCount: buildDocs.length,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                      crossAxisCount: 1,
+                      childAspectRatio: 5 / 2,
+                      crossAxisSpacing: 8,
+                      mainAxisSpacing: 8,
+                    ),
+                    itemBuilder: (ctx, i) => BuildingItem(
+                      buildId: buildDocs[i].id,
+                      buildAddress: buildDocs[i]['buildAddress'],
+                      maintenence: buildDocs[i]['maintenence'],
+                      houses: buildDocs[i]['houses'] as List,
+                      buildName: buildDocs[i]['buildName'],
+                      isHome: buildDocs[i]['isHome'],
+                    ),
+                  );
           });
     });
   }

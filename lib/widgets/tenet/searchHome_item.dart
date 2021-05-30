@@ -1,5 +1,5 @@
 import 'package:HomER_flutter/models/house.dart';
-import 'package:HomER_flutter/tenant_Screens/presentHome.dart';
+import 'package:HomER_flutter/tenant_Screens/searchHomeDetails.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -24,7 +24,7 @@ class SearchHomeItem extends StatelessWidget {
               child: GridTile(
                 child: GestureDetector(
                   onTap: () {
-                    Navigator.of(context).pushNamed(PresentHome.id,
+                    Navigator.of(context).pushNamed(SearchHomeDetailsPage.id,
                         arguments: snapshot.data.houseId);
                   },
                   child: Card(
