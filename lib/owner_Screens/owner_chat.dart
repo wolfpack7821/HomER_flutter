@@ -1,6 +1,6 @@
 import 'package:HomER_flutter/tenant_Screens/complaintPage.dart';
+import 'package:HomER_flutter/widgets/owner/messagesOwner.dart';
 import 'package:HomER_flutter/widgets/owner/new_messageOwner.dart';
-import 'package:HomER_flutter/widgets/tenet/messages.dart';
 import 'package:flutter/material.dart';
 
 class OwnerChat extends StatefulWidget {
@@ -12,11 +12,11 @@ class OwnerChat extends StatefulWidget {
 class _OwnerChatState extends State<OwnerChat> {
   @override
   Widget build(BuildContext context) {
+    final hId =ModalRoute.of(context).settings.arguments;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
-        // centerTitle: true,
         title: Text(
           'Tenet X',
           style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
@@ -32,9 +32,9 @@ class _OwnerChatState extends State<OwnerChat> {
         child: Column(
           children: [
             Expanded(
-              child: Messages(),
+              child: MessagesOwner(hId),
             ),
-            NewMessageOwner(),
+            NewMessageOwner(hId),
           ],
         ),
       ),

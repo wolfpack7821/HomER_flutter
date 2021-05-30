@@ -7,6 +7,8 @@ class Building {
   final String buildName;
   final String buildAddress;
   List houses;
+  List houseNo;
+  List houseName;
   final String maintenence;
   bool isHome;
 
@@ -15,6 +17,8 @@ class Building {
     @required this.buildName,
     @required this.buildAddress,
     this.houses,
+    this.houseNo,
+    this.houseName,
     @required this.maintenence,
     this.isHome = false,
   });
@@ -32,6 +36,8 @@ class Buildings with ChangeNotifier {
     final user = FirebaseAuth.instance.currentUser;
     print(value.houses);
     value.houses.remove('1');
+    value.houseName.remove('1');
+    value.houseNo.remove('1');
     print(value.houses.length);
     FirebaseFirestore.instance
         .collection('building')
@@ -42,6 +48,8 @@ class Buildings with ChangeNotifier {
       'buildAddress': value.buildAddress,
       'maintenence': value.maintenence,
       'houses': value.houses,
+      'houseName':value.houseName,
+      'houseNo':value.houseNo,
       'isHome': value.isHome,
     }).then((value) => print(value.id));
 

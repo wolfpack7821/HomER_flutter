@@ -68,7 +68,7 @@ class _HouseDetailsState extends State<HouseDetails> {
         actions: [
           FlatButton(
               onPressed: () {
-                Navigator.of(context).pushNamed(ManageTenet.id);
+                Navigator.of(context).pushNamed(ManageTenet.id,arguments: houseId);
               },
               child: Text('Manage Tenet')),
           IconButton(icon: Icon(Icons.camera_alt), onPressed: () {})
@@ -160,10 +160,12 @@ class _HouseDetailsState extends State<HouseDetails> {
                   fields('Advance', '₹${snapshot.data.houseAdv}'),
                   fields('Owner', ''),
                   fields('Owner ContactNo', '${snapshot.data.contactNO}'),
+
+                  fields('tenet ContactNo', '${snapshot.data.tenetContact}'),
                   fields('Menitenance Details',
                       '₹${snapshot.data.houseMaintenance}'),
                   fields('TenetName', '${snapshot.data.tenantName}'),
-                  fields('No Of Members', '4'),
+                  fields('No Of Members', '${snapshot.data.noOfTenets}'),
                   Row(
                     children: [
                       Padding(

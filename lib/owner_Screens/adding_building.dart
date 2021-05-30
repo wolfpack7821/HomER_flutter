@@ -20,6 +20,8 @@ class _AddingBuildingState extends State<AddingBuilding> {
     buildName: '',
     maintenence: '',
     houses: ['1'],
+    houseName: ['1'],
+    houseNo: ['1'],
     isHome: false,
   );
   void toggleSwitch(bool value) {
@@ -81,7 +83,9 @@ class _AddingBuildingState extends State<AddingBuilding> {
                         maintenence: _addBuild.maintenence,
                         houses: _addBuild.houses,
                         isHome: _addBuild.isHome,
-                        buildId: DateTime.now().toString(),
+                        houseName: _addBuild.houseName,
+                        houseNo: _addBuild.houseNo,
+                        buildId: _addBuild.buildId,
                       );
                     },
                   ),
@@ -107,7 +111,9 @@ class _AddingBuildingState extends State<AddingBuilding> {
                         buildName: _addBuild.buildName,
                         maintenence: _addBuild.maintenence,
                         isHome: _addBuild.isHome,
-                        buildId: DateTime.now().toString(),
+                        houseName: _addBuild.houseName,
+                        houseNo: _addBuild.houseNo,
+                        buildId: _addBuild.buildId,
                       );
                     },
                   ),
@@ -141,7 +147,9 @@ class _AddingBuildingState extends State<AddingBuilding> {
                         buildAddress: _addBuild.buildAddress,
                         buildName: _addBuild.buildName,
                         isHome: _addBuild.isHome,
-                        buildId: DateTime.now().toString(),
+                        houseName: _addBuild.houseName,
+                        houseNo: _addBuild.houseNo,
+                        buildId: _addBuild.buildId,
                       );
                     },
                   ),

@@ -13,6 +13,7 @@ import './owner_Screens/uploadFiles.dart';
 import './tenant_Screens/complaintPage.dart';
 import './tenant_Screens/presentHome.dart';
 import './tenant_Screens/searchHome.dart';
+import 'tenant_Screens/searchHomeDetails.dart';
 import './owner_Screens/houses_overview_screen.dart';
 import './models/building.dart';
 import './login/loginscreen.dart';
@@ -68,7 +69,8 @@ class MyApp extends StatelessWidget {
           SearchHousePage.id: (_) => SearchHousePage(),
           FilePickerPage.id: (_) => FilePickerPage(),
           ImagePreview.id: (_) => ImagePreview(),
-          ManageTenet.id: (_) => ManageTenet()
+          ManageTenet.id: (_) => ManageTenet(),
+          SearchHomeDetailsPage.id:(_) =>SearchHomeDetailsPage(),
         },
       ),
     );

@@ -25,6 +25,7 @@ class _HousesOverviewScreenState extends State<HousesOverviewScreen> {
         .collection('building${user.uid}')
         .doc(buildId)
         .get();
+
     return build;
   }
 
@@ -36,6 +37,8 @@ class _HousesOverviewScreenState extends State<HousesOverviewScreen> {
         buildAddress: data['buildAddress'],
         maintenence: data['maintenence'],
         houses: data['houses'],
+        houseNo: data['houseNo'],
+        houseName: data['houseName'],
         isHome: data['isHome']);
     return building;
   }
@@ -78,45 +81,35 @@ class _HousesOverviewScreenState extends State<HousesOverviewScreen> {
                 : ListView.builder(
                     itemCount: snapshot.data.houses.length,
                     itemBuilder: (ctx, i) {
-                      return Card(
-                        margin:
-                            EdgeInsets.symmetric(vertical: 4, horizontal: 5),
-                        elevation: 4,
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
                         child: ListTile(
-                          onLongPress: () {
-                            // Provider.of<Houses>(context, listen: false)
-                            //     .deleteHouse(snapshot.data.houses[i]);
-                            // Provider.of<Buildings>(context, listen: false)
-                            //     .deleteHouse(buildId, snapshot.data.houses[i]);
-                            // Navigator.of(context).pushReplacementNamed(
-                            //     HousesOverviewScreen.id,
-                            //     arguments: buildId);
-                          },
+                          onLongPress: () {},
                           onTap: () {
                             Navigator.of(context).pushNamed(HouseDetails.id,
                                 arguments: snapshot.data.houses[i]);
                           },
                           leading: CircleAvatar(
                             backgroundColor: Colors.purple,
-                            radius: 25,
+                            radius: 20,
                             child: FittedBox(
                               child: Text(
-                                snapshot.data.houses[i],
+                                snapshot.data.houseNo[i],
                                 style: TextStyle(
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white),
                               ),
                             ),
                           ),
-                          title: Text('${snapshot.data.houses[i]} tenent'),
-                          subtitle: Text(
-                            'username',
-                            style: TextStyle(color: Colors.grey),
+                          title: Text(
+                            snapshot.data.houseName[i],
+                            style: TextStyle(fontSize: 20),
                           ),
                           trailing: IconButton(
                               icon: Icon(Icons.messenger_outline),
                               onPressed: () {
-                                Navigator.of(context).pushNamed(OwnerChat.id);
+                                Navigator.of(context).pushNamed(OwnerChat.id,
+                                    arguments: snapshot.data.houses[i]);
                               }),
                         ),
                       );

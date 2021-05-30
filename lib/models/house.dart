@@ -10,19 +10,23 @@ class House with ChangeNotifier {
   final String houseNumber;
   final String tenantName;
   final String tenantUname;
+  final String tenetContact;
   final String tenantIdProof;
   final String houseFiles;
-  final double houseAdv;
-  final double contactNO;
-  final double houseRent;
+  final houseAdv;
+  final contactNO;
+  final houseRent;
   final String houseAddress;
   final String houseImage;
-  final double houseMaintenance;
+  final houseMaintenance;
   final bool isHouseWaterFixed;
-  final double houseWater;
-  final double rating;
+  final houseWater;
+  final rating;
   final String review;
+  final noOfTenets;
   bool isVacant;
+  final tenetEmail;
+  final tenetId;
 
   House({
     @required this.buildId,
@@ -30,9 +34,12 @@ class House with ChangeNotifier {
     @required this.houseName,
     @required this.houseNumber,
     @required this.houseImage,
-    @required this.tenantName,
-    @required this.tenantUname,
+    this.tenantName,
+    this.tenantUname,
+    this.tenetEmail,
+    this.tenetId,
     @required this.tenantIdProof,
+    this.tenetContact,
     @required this.houseAddress,
     @required this.houseFiles,
     @required this.contactNO,
@@ -40,6 +47,7 @@ class House with ChangeNotifier {
     @required this.houseRent,
     @required this.houseMaintenance,
     @required this.isHouseWaterFixed,
+    this.noOfTenets = 0,
     this.ownerId,
     this.houseWater,
     this.rating,
@@ -79,8 +87,11 @@ class Houses with ChangeNotifier {
         isVacant: houseData['isVacant'],
         rating: houseData['rating'],
         review: houseData['review'],
-        houseWater: houseData['houseWater']
-        );
+        houseWater: houseData['houseWater'],
+        noOfTenets: houseData['noOfTenets'],
+        tenetContact: houseData['tenetContact'],
+        tenetEmail: houseData['tenetEmail'],
+        tenetId: houseData['tenetId']);
     return house;
   }
 
@@ -105,7 +116,11 @@ class Houses with ChangeNotifier {
       'houseWater': house.houseWater,
       'rating': house.rating,
       'review': house.review,
-      'isVacant': house.isVacant
+      'isVacant': house.isVacant,
+      'noOfTenets': house.noOfTenets,
+      'tenetContact': house.tenetContact,
+      'tenetEmail': house.tenetEmail,
+      'tenetId': house.tenetId,
     }).then((value) async {
       final build = await FirebaseFirestore.instance
           .collection('building')
@@ -114,22 +129,19 @@ class Houses with ChangeNotifier {
           .doc(house.buildId)
           .get();
       List h = build['houses'];
+      List hNo = build['houseNo'];
+      List hName = build['houseName'];
       h.add(value.id);
+      hNo.add(house.houseNumber);
+      hName.add(house.houseName);
       FirebaseFirestore.instance
           .collection('building')
           .doc(user.uid)
           .collection('building${user.uid}')
           .doc(house.buildId)
-          .set({
-        'buildName': build['buildName'],
-        'buildAddress': build['buildAddress'],
-        'maintenence': build['maintenence'],
-        'isHome': build['isHome'],
-        'houses': h
-      });
+          .update({'houses': h, 'houseNo': hNo, 'houseName': hName});
       print(value.id);
     });
-    _houses.add(house);
     notifyListeners();
   }
 

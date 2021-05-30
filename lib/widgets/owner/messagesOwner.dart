@@ -3,19 +3,19 @@ import '../message_bubble.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class Messages extends StatelessWidget {
+class MessagesOwner extends StatelessWidget {
+  final String hId;
+  MessagesOwner(this.hId);
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
-    return FutureBuilder(
-      future: FirebaseFirestore.instance.collection('users').doc(user.uid).get(),
-      builder: (ctx, snapShots) {
+    return FutureBuilder(builder: (ctx, snapShots) {
       if (snapShots.connectionState == ConnectionState.waiting) {
         return Center(child: CircularProgressIndicator());
       }
       return StreamBuilder(
           stream: FirebaseFirestore.instance
-              .collection('chat${snapShots.data['house']}')
+              .collection('chat$hId')
               .orderBy('createdAt', descending: true)
               .snapshots(),
           builder: (ctx, chatSnapshot) {
