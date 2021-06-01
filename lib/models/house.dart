@@ -1,5 +1,8 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
 
 class House with ChangeNotifier {
@@ -95,7 +98,7 @@ class Houses with ChangeNotifier {
     return house;
   }
 
-  void addHouse(House house) async {
+ Future< void> addHouse(House house, File _image) async {
     final user = FirebaseAuth.instance.currentUser;
     FirebaseFirestore.instance.collection('houses').add({
       'buildId': house.buildId,
@@ -122,6 +125,16 @@ class Houses with ChangeNotifier {
       'tenetEmail': house.tenetEmail,
       'tenetId': house.tenetId,
     }).then((value) async {
+      final ref =  FirebaseStorage.instance
+          .ref()
+          .child('houseImages')
+          .child(value.id + '.jpg');
+      await ref.putFile(_image).whenComplete(() => null);
+      final imageUrl = await ref.getDownloadURL();
+      await FirebaseFirestore.instance
+          .collection('houses')
+          .doc(value.id)
+          .update({'houseImage': imageUrl});
       final build = await FirebaseFirestore.instance
           .collection('building')
           .doc(user.uid)
@@ -134,7 +147,7 @@ class Houses with ChangeNotifier {
       h.add(value.id);
       hNo.add(house.houseNumber);
       hName.add(house.houseName);
-      FirebaseFirestore.instance
+      await FirebaseFirestore.instance
           .collection('building')
           .doc(user.uid)
           .collection('building${user.uid}')

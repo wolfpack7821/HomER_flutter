@@ -1,5 +1,4 @@
 import 'package:HomER_flutter/models/house.dart';
-import 'package:HomER_flutter/owner_Screens/edit_house_screen.dart';
 import 'package:HomER_flutter/owner_Screens/manageTenet.dart';
 import 'package:HomER_flutter/widgets/owner/owner_drawer.dart';
 import 'package:flutter/material.dart';
@@ -194,7 +193,7 @@ class _HouseDetailsState extends State<HouseDetails> {
         child: FloatingActionButton(
           backgroundColor: Colors.deepOrange,
           onPressed: () {
-            Navigator.of(context).pushNamed(AddHouse.id,arguments: houseId);
+            // Navigator.of(context).pushNamed(AddHouse.id,arguments: [houseId]);
           },
           child: Icon(
             Icons.edit,

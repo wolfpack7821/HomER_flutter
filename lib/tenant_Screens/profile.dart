@@ -1,6 +1,5 @@
 import 'package:HomER_flutter/widgets/tenet/drawer.dart';
 import 'package:flutter/material.dart';
-// import 'package:intl/intl.dart';
 class TenetProfile extends StatefulWidget {
   static const id = 'Profile';
   @override

@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import '../../owner_Screens/houses_overview_screen.dart';
 import '../../models/building.dart';
 import '../../owner_Screens/buildings_overview_screen.dart';
-import '../../owner_Screens/edit_house_screen.dart';
+import '../../owner_Screens/add_house_screen.dart';
 import '../../owner_Screens/houseDetails.dart';
 
 class BuildingItem extends StatelessWidget {

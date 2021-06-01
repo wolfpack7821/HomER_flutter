@@ -23,7 +23,7 @@ import './tenant_Screens/home.dart';
 import './tenant_Screens/payment_details.dart';
 import './tenant_Screens/payment_history.dart';
 import './tenant_Screens/profile.dart';
-import './owner_Screens/edit_house_screen.dart';
+import 'owner_Screens/add_house_screen.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();

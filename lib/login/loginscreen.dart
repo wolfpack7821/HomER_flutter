@@ -1,4 +1,4 @@
-import 'package:HomER_flutter/tenant_Screens/home.dart';
+import 'package:HomER_flutter/tenant_Screens/searchHome.dart';
 import 'package:flutter/material.dart';
 import '../owner_Screens/buildings_overview_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -57,7 +57,7 @@ class _LoginPageState extends State<LoginPage> {
             .get();
         print(userr['userType']);
         if (userr['userType'] == 'tenet'&& type =='tenet') {
-          Navigator.of(context).pushReplacementNamed(TenetHome.id);
+          Navigator.of(context).pushReplacementNamed(SearchHousePage.id);
         } else if (userr['userType'] == 'owner'&& type =='owner') {
           Navigator.of(context)
               .pushReplacementNamed(BuildingsOverviewScreen.id);
@@ -96,7 +96,7 @@ class _LoginPageState extends State<LoginPage> {
             .get();
         print(userr['userType']);
         if (userr['userType'] == 'tenet') {
-          Navigator.of(context).pushReplacementNamed(TenetHome.id);
+          Navigator.of(context).pushReplacementNamed(SearchHousePage.id);
         } else if (userr['userType'] == 'owner') {
           Navigator.of(context)
               .pushReplacementNamed(BuildingsOverviewScreen.id);

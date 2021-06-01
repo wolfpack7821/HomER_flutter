@@ -31,7 +31,6 @@ class Buildings with ChangeNotifier {
     return [..._items];
   }
 
-
   void addBuilding(Building value) async {
     final user = FirebaseAuth.instance.currentUser;
     print(value.houses);
@@ -48,17 +47,73 @@ class Buildings with ChangeNotifier {
       'buildAddress': value.buildAddress,
       'maintenence': value.maintenence,
       'houses': value.houses,
-      'houseName':value.houseName,
-      'houseNo':value.houseNo,
+      'houseName': value.houseName,
+      'houseNo': value.houseNo,
       'isHome': value.isHome,
     }).then((value) => print(value.id));
 
     notifyListeners();
   }
 
-  void deleteBuild(String id) {
-    _items.remove(_items.firstWhere((element) => element.buildId == id));
-    print('removed');
+  void deleteBuild(String id) async {
+    final user = FirebaseAuth.instance.currentUser;
+    final build = await FirebaseFirestore.instance
+        .collection('building')
+        .doc(user.uid)
+        .collection('building${user.uid}')
+        .doc(id)
+        .get();
+    final houses = build['houses'] as List;
+    houses.forEach((element) async {
+      await FirebaseFirestore.instance
+          .collection('houses')
+          .doc(element)
+          .get()
+          .then((value) async {
+        print('hid:${value['tenetId']}');
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(value['tenetId'])
+            .get()
+            .then((value) {
+          print('id:${value.id}');
+        });
+        await FirebaseFirestore.instance
+            .collection('chat$element')
+            .get()
+            .then((value) {
+          for (var data in value.docs) {
+            FirebaseFirestore.instance
+                .collection('chat$element')
+                .doc()
+                .delete();
+          }
+        });
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(value['tenetId'])
+            .update({'house': null}).then((value) {
+          print('removed');
+        });
+      });
+
+      FirebaseFirestore.instance
+          .collection('houses')
+          .doc(element)
+          .delete()
+          .then((value) {
+        print('removed');
+      });
+    });
+    await FirebaseFirestore.instance
+        .collection('building')
+        .doc(user.uid)
+        .collection('building${user.uid}')
+        .doc(id)
+        .delete()
+        .then((value) {
+      print('removed');
+    });
     notifyListeners();
   }
 
