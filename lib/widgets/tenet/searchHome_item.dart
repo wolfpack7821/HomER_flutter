@@ -32,6 +32,7 @@ class SearchHomeItem extends StatelessWidget {
                     child: Column(children: [
                       Image.network(
                         snapshot.data.houseImage,
+                        height: MediaQuery.of(context).size.height * .325,
                       ),
                       Padding(
                         padding: const EdgeInsets.fromLTRB(4.0, 8, 4, 4),

@@ -23,20 +23,31 @@ class _AddHouseState extends State<AddHouse> {
   final _contactFocusNode = FocusNode();
   final _form = GlobalKey<FormState>();
   File _image;
-  var _addHouse; 
-  Future<void> _submit(String id) async {
+  var _addHouse;
+  Future<void> _submit(String id, bool isHome) async {
     final isValid = _form.currentState.validate();
     if (!isValid) {
       return;
     }
-    Provider.of<Houses>(context, listen: false).addHouse(_addHouse);
+    FocusScope.of(context).unfocus();
+    _form.currentState.save();
+    await Provider.of<Houses>(context, listen: false)
+        .addHouse(_addHouse, _image);
     int count = 0;
-    Navigator.of(context).popUntil((_) => count++ >= 1);
+    if (isHome) {
+      Navigator.of(context).popUntil((_) => count++ >= 1);
+    } else {
+      Navigator.of(context).popUntil((_) => count++ >= 2);
+    }
   }
 
   final picker = ImagePicker();
   Future getImage() async {
-    final pickedFile = await picker.getImage(source: ImageSource.camera);
+    final pickedFile = await picker.getImage(
+        source: ImageSource.camera,
+        imageQuality: 30,
+        maxHeight: 200,
+        maxWidth: 50);
 
     setState(() {
       if (pickedFile != null) {
@@ -49,15 +60,16 @@ class _AddHouseState extends State<AddHouse> {
 
   @override
   Widget build(BuildContext context) {
-    final id = ModalRoute.of(context).settings.arguments;
+    final lists = ModalRoute.of(context).settings.arguments as List;
+    final id = lists[0];
+    final isHome = lists[1];
     _addHouse = House(
         contactNO: 0,
         buildId: id,
-        houseId: DateTime.now().toIso8601String(),
+        houseId: '',
         houseName: '',
         houseNumber: '',
-        houseImage:
-            'https://sumesshmenonassociates.com/wp-content/uploads/2020/10/emirate-hills-front-1.jpg',
+        houseImage: '',
         tenantName: '',
         tenantUname: '',
         tenantIdProof: '',
@@ -76,9 +88,11 @@ class _AddHouseState extends State<AddHouse> {
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: FlatButton(
-              onPressed: () {
-                _submit(id);
-              },
+              onPressed: _image != null
+                  ? () {
+                      _submit(id, isHome);
+                    }
+                  : null,
               child: Text(
                 'Save House',
                 style: TextStyle(color: Colors.black, fontSize: 15),
@@ -93,6 +107,7 @@ class _AddHouseState extends State<AddHouse> {
           key: _form,
           child: ListView(
             children: [
+              Text('Please upload the image before adding the fields'),
               Row(
                 children: [
                   FlatButton.icon(
@@ -115,7 +130,9 @@ class _AddHouseState extends State<AddHouse> {
                         : null,
                     child: Text(
                       'Preview',
-                      style: _image == null?TextStyle(color:Colors.grey):TextStyle(color:Colors.deepOrange),
+                      style: _image == null
+                          ? TextStyle(color: Colors.grey)
+                          : TextStyle(color: Colors.deepOrange),
                     ),
                   ),
                 ],

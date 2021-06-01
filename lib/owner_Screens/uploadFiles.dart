@@ -49,19 +49,6 @@ class _FilePickerPageState extends State<FilePickerPage> {
     });
   }
 
-  // void _clearCachedFiles() {
-  //   FilePicker.platform.clearTemporaryFiles().then((result) {
-  //     ScaffoldMessenger.of(context).showSnackBar(
-  //       SnackBar(
-  //         backgroundColor: result! ? Colors.green : Colors.red,
-  //         content: Text((result
-  //             ? 'Temporary files removed with success.'
-  //             : 'Failed to clean temporary files')),
-  //       ),
-  //     );
-  //   });
-  // }
-
   void _selectFolder() {
     FilePicker.platform.getDirectoryPath().then((value) {
       setState(() => _directoryPath = value);

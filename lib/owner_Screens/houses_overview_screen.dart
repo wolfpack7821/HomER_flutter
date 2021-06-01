@@ -1,4 +1,4 @@
-import 'package:HomER_flutter/owner_Screens/edit_house_screen.dart';
+import 'package:HomER_flutter/owner_Screens/add_house_screen.dart';
 import 'package:HomER_flutter/owner_Screens/houseDetails.dart';
 import 'package:HomER_flutter/owner_Screens/owner_chat.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -69,7 +69,7 @@ class _HousesOverviewScreenState extends State<HousesOverviewScreen> {
                     icon: Icon(Icons.add),
                     onPressed: () {
                       Navigator.of(context)
-                          .pushNamed(AddHouse.id, arguments: buildId);
+                          .pushNamed(AddHouse.id, arguments: [buildId,snapshot.data.isHome]);
                     }),
               ],
             ),
