@@ -20,6 +20,8 @@ class _NewMessageState extends State<NewMessage> {
         .get();
     FirebaseFirestore.instance.collection('chat${userData['house']}').add({
       'Text': _message,
+      'isPay':false,
+      'value':null,
       'createdAt': Timestamp.now(),
       'userId': user.uid,
       'username': userData['username'],

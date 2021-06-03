@@ -65,15 +65,14 @@ class Buildings with ChangeNotifier {
         .get();
     final houses = build['houses'] as List;
     houses.forEach((element) async {
-      await FirebaseFirestore.instance
+     final house= await FirebaseFirestore.instance
           .collection('houses')
           .doc(element)
-          .get()
-          .then((value) async {
-        print('hid:${value['tenetId']}');
+          .get();
+        print('hid:${house['tenetId']}');
         await FirebaseFirestore.instance
             .collection('users')
-            .doc(value['tenetId'])
+            .doc(house['tenetId'])
             .get()
             .then((value) {
           print('id:${value.id}');
@@ -91,11 +90,10 @@ class Buildings with ChangeNotifier {
         });
         await FirebaseFirestore.instance
             .collection('users')
-            .doc(value['tenetId'])
+            .doc(house['tenetId'])
             .update({'house': null}).then((value) {
           print('removed');
         });
-      });
 
       FirebaseFirestore.instance
           .collection('houses')

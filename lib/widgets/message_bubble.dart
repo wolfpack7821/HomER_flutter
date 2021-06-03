@@ -4,9 +4,16 @@ class MessageBubble extends StatelessWidget {
   final Key key;
   final String message;
   final isMe;
+  final value;
+  final isPay;
   final String username;
   MessageBubble(
-      {this.key,this.message, this.isMe, this.username});
+      {this.key,
+      this.message,
+      this.isMe,
+      this.username,
+      this.value,
+      this.isPay});
   @override
   Widget build(BuildContext context) {
     return message != ''
@@ -52,9 +59,23 @@ class MessageBubble extends StatelessWidget {
                                 Text(
                                   message,
                                   style: TextStyle(
-                                    color: isMe ? Colors.black : Colors.white,
+                                    color: isMe ? Colors.white : Colors.white,
                                   ),
                                 ),
+                                isPay == 1
+                                    ? FlatButton(
+                                        color: Colors.white,
+                                        onPressed: () {
+                                          print(value);
+                                        },
+                                        child: Text(
+                                          'pay',
+                                          style: TextStyle(
+                                              color: isMe
+                                                  ? Colors.deepPurple
+                                                  : Colors.amber),
+                                        ))
+                                    : Container()
                               ],
                             ),
                           ),
